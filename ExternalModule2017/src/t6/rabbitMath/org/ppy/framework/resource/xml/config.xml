@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- 
+
+<chapter id="0" name="规律" size="5">
+	<title type="11111"/>
+	<train type="12112"/>
+</chapter>
+
+chapter:
+	id
+	name
+	size
+	
+title:
+	type 1点击模块 2拖动模块 3顺序点击 4其他模块
+train:
+	type 1点击模块 2拖动模块 3顺序点击  4其他模块
+
+ -->
+
+<Menu>
+	<chapter id="0" name="规律" size="5">
+		<title type="11121"/>
+		<train type="11122"/>
+	</chapter>
+	<chapter id="1" name="对比" size="6">
+		<title type="111111"/>
+		<train type="111111"/>
+	</chapter>
+	<chapter id="2" name="认识" size="6">
+		<title type="111111"/>
+		<train type="233211"/>
+	</chapter>
+	<chapter id="3" name="形状" size="3">
+		<title type="111"/>
+		<train type="422"/>
+	</chapter>
+	<chapter id="4" name="算术" size="7">
+		<title type="1111111"/>
+		<train type="2222221"/>
+	</chapter>
+</Menu>
+

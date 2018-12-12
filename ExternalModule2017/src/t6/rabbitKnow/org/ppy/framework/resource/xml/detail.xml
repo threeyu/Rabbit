@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+外部swf配表
+<chapter id="0" name="开心动物园">
+	<page size="5" que0="11000" que1="00111">
+	</page>
+</chapter>
+
+size：page页数
+que0：对应帧数答案的id
+que1：与que0取反
+ -->
+
+<Menu>
+	<chapter id="0" name="开心动物园">
+		<page size="5" que0="11000" que1="00111">
+		</page>
+	</chapter>
+	<chapter id="1" name="小小粉刷匠">
+		<page size="5" que0="01000" que1="10111">
+		</page>
+	</chapter>
+	<chapter id="2" name="农场大丰收">
+		<page size="5" que0="01100" que1="10011">
+		</page>
+	</chapter>
+	<chapter id="3" name="深海奇遇记">
+		<page size="5" que0="00100" que1="11011">
+		</page>
+	</chapter>
+	<chapter id="4" name="奔向神奇岛">
+		<page size="5" que0="10110" que1="01001">
+		</page>
+	</chapter>
+	<chapter id="5" name="小兔去哪儿">
+		<page size="5" que0="11010" que1="00101">
+		</page>
+	</chapter>
+	<chapter id="6" name="职业舞台秀">
+		<page size="5" que0="10000" que1="01111">
+		</page>
+	</chapter>
+	<chapter id="7" name="送小星回家">
+		<page size="5" que0="00000" que1="11111">
+		</page>
+	</chapter>
+</Menu>

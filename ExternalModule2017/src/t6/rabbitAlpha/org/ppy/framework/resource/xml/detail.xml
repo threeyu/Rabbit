@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Menu>
+	<firstPage id="1" name="韵母1" size="6">
+		<secondPage num="5"/>
+	</firstPage>
+	<firstPage id="2" name="韵母2" size="12">
+		<secondPage num="5"/>
+	</firstPage>
+	<firstPage id="3" name="韵母3" size="6">
+		<secondPage num="5"/>
+	</firstPage>
+	<firstPage id="4" name="声母1" size="12">
+		<secondPage num="4"/>
+	</firstPage>
+	<firstPage id="5" name="声母2" size="11">
+		<secondPage num="4"/>
+	</firstPage>
+	<firstPage id="6" name="字母表" size="3">
+		<secondPage num="24"/>
+	</firstPage>
+	<firstPage id="7" name="整体认读音节" size="16">
+		<secondPage num="5"/>
+	</firstPage>
+</Menu>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Menu>
+	<firstPage id="1" name="a-i" size="5">
+		<secondPage num="8"/>
+	</firstPage>
+	<firstPage id="2" name="j-r" size="5">
+		<secondPage num="8"/>
+	</firstPage>
+	<firstPage id="3" name="s-z" size="5">
+		<secondPage num="9"/>
+	</firstPage>
+	<firstPage id="4" name="字母表" size="1">
+		<secondPage num="26"/>
+	</firstPage>
+</Menu>
