@@ -1,15 +1,32 @@
 #忽略全部内容，但是不忽略 .gitignore 文件、根目录下的/AS3AnimationDemo /Client /ExternalModule2017 /ExternalModule2018 目录
 /*
+
+# Flash Builder
 bin/
 bin-debug/
 bin-release/
-[Oo]bj/ # FlashDevelop obj
-[Bb]in/ # FlashDevelop bin
 .settings/
-.svn/
 .actionScriptProperties
 .project
 .properties
+
+
+# FlashDevelop obj
+[Oo]bj/ 
+
+
+# FlashDevelop bin
+[Bb]in/ 
+
+# Built application files
+*.apk
+*.ap_
+*.aab
+
+#Common
+.svn/
+
+
 !.gitignore
 !/AS3AnimationDemo
 !/BabyTestAIR
