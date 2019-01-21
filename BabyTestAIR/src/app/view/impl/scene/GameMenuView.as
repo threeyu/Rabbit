@@ -31,6 +31,11 @@ package app.view.impl.scene
 			return _mainUI["mcTips"];
 		}
 		
+		public function mcAnno() : MovieClip
+		{
+			return _mainUI["mcAnno"];
+		}
+		
 		public function mcIcon(id : uint) : MovieClip
 		{
 			return _mainUI["mc_" + id];

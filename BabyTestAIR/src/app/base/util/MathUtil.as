@@ -25,5 +25,32 @@ package app.base.util
 			
 			return min + int(Math.round(Math.random() * (max - min)));
 		}
+		
+		/**
+		 * 返回一个不重复的随机序列
+		 * @param num
+		 * @return 
+		 */		
+		public static function nonRepeatRand(num : uint) : Array
+		{
+			if(num <= 0)
+				return null;
+			
+			var arr : Array = [];
+			for(var i : uint = 0; i < num; ++i)
+				arr.push(i);
+			
+			
+			var result : Array = [];
+			var index : uint;
+			while(arr.length > 0)
+			{
+				index = uint(Math.floor(Math.random() * arr.length));
+				result.push(arr[index]);
+				arr.splice(index, 1);
+			}
+			
+			return result;
+		}
 	}
 }

@@ -61,18 +61,11 @@ package extmodule.impl.rabbitWonderfulDream
 			
 //			trace("[sound]: 美妙的梦境");
 			soundManager.playSound(_soundRoot + "titleSound.mp3");
-			TweenLite.delayedCall(2.5, titleSoundCallback);
+			
+			// 跳过引导动画
+			TweenLite.delayedCall(2.5, tipsSoundCallback);
 		}
 		
-		private function titleSoundCallback() : void
-		{
-			_mainUI["mcTips"].gotoAndStop(2);
-			
-			
-//			trace("[sound]: 我经常跟。。。");
-			soundManager.playSound(_soundRoot + "yindao.mp3");
-			TweenLite.delayedCall(7, tipsSoundCallback);
-		}
 		private function tipsSoundCallback() : void
 		{
 			_mainUI["mcTips"].visible = false;

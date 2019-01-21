@@ -7,6 +7,7 @@ package app.base.core.cmd
 	import app.conf.constant.GlobalConfig;
 	import app.model.IGameState;
 	import app.service.impl.AssetsService;
+	import app.view.impl.bg.GameBG_0View;
 	import app.view.impl.scene.GameMenuView;
 	
 	import robotlegs.bender.bundles.mvcs.Command;
@@ -41,7 +42,10 @@ package app.base.core.cmd
 			var list : XMLList = data.children();
 			gameState.setupGate(list);
 			trace("=== 加载题目完成... ===");
+			// 菜单层
 			eventDispatcher.dispatchEvent(new PPYEvent(CommandID.CHANGE_SCENE, GameMenuView));
+			// 背景层
+			eventDispatcher.dispatchEvent(new PPYEvent(CommandID.CHANGE_BG, GameBG_0View));
 		}
 	}
 }

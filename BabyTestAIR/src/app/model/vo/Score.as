@@ -32,20 +32,6 @@ package app.model.vo
 			}
 		}
 		
-		public function resetData(age : uint, specArr : Array) : void
-		{
-			var arr : Array = getScoreList(age);
-			for(var i : uint = 0; i < arr.length; ++i) {
-				arr[i] = DEFAULT_NUM;
-				for(var j : uint = 0; j < specArr.length; ++j) {
-					if(i == specArr[j]) {
-						arr[i] = 0;
-						break;
-					}
-				}
-			}
-		}
-		
 		public function hasScore(age : uint, speciesArr : Array) : Boolean
 		{
 			if(age != 0 && age != 1 && age != 2) {
@@ -84,7 +70,7 @@ package app.model.vo
 			return result;
 		}
 		
-		public function getScoreList(age : uint) : Array
+		public function getScoreListByAge(age : uint) : Array
 		{
 			if(age != 0 && age != 1 && age != 2) {
 				throw new Error("年龄不在规定的年龄段");

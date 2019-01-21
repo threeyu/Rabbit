@@ -17,8 +17,8 @@ package app.view.impl.load
 		
 		public function UpdateVersionView()
 		{
-			_mainUI = new UpdateModuleUI();
-			this.addChild(_mainUI);
+//			_mainUI = new UpdateModuleUI();
+//			this.addChild(_mainUI);
 		}
 		
 		public function btnClose() : SimpleButton

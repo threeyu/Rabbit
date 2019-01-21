@@ -50,6 +50,9 @@ package app.base.core.cmd
 				case CommandID.CLEAR_PANEL:        // 清除弹框
 					trace("change_panel");
 					break;
+				case CommandID.CLEAR_EFFECT:		// 清除效果层
+					clearEffect();
+					break;
 				case CommandID.CLEAR_LOAD:         // 清除加载层
 					clearLoad();
 					break;
@@ -77,6 +80,16 @@ package app.base.core.cmd
 				var curView : IView = _layerManager.sceneLayer.getChildAt(0) as IView;
 				if(curView) {
 					_layerManager.sceneLayer.removeChild(curView as DisplayObject);
+				}
+			}
+		}
+		
+		private function clearEffect() : void
+		{
+			if(_layerManager.effectLayer.numChildren > 0) {
+				var curView : IView = _layerManager.effectLayer.getChildAt(0) as IView;
+				if(curView) {
+					_layerManager.effectLayer.removeChild(curView as DisplayObject);
 				}
 			}
 		}

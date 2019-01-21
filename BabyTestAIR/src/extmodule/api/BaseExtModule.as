@@ -45,9 +45,7 @@ package extmodule.api
 		[Inject]
 		public var soundManager : SoundManager;
 		
-		
 		protected var _mainUI : Sprite;
-		
 		private var _url : String;
 		
 		public function BaseExtModule(url : String)
@@ -70,7 +68,7 @@ package extmodule.api
 			_mainUI = data["con"];
 //			trace("=== 子模块加载完毕 ===");
 			
-			
+			// 延时5s，无其他意义
 			TweenMax.delayedCall(5, function():void {
 				loadingService.loadEnd();
 				
@@ -87,28 +85,20 @@ package extmodule.api
 		 * 保存分数
 		 * @param score 得分
 		 * @param total 总分
-		 * 
 		 */		
-		protected function saveScore(score : uint, total : uint) : void
+		protected function saveScore(score : Number, total : Number) : void
 		{
-			var curGate : uint = gameState.gate;
-			var arr : Array = gameState.getGateList();
-			var perScore : uint;
-			var species : uint;
-			for(var i : uint = 0; i < arr.length; ++i) {
-				if(curGate == arr[i].id) {
-					species = arr[i].species;
-					break;
-				}
-			}
+			var gate : uint = gameState.gate;
+			var arr : Array = gameState.questionPool;
+			var species : uint = arr[gate].species;
+			var perScore : uint = gameState.getPerScore(species);
 			
-			perScore = gameState.getPerScore(species);
-			var result : uint = score / total * perScore;// 分数=得分/总分 * 每关分值
-
-
+			var percent : Number = score / total;
+			var result : uint = percent * perScore;// 分数=得分/总分 * 每关分值
+			
+			gameState.setGateScore(Number(percent.toFixed(2)));
 			gameState.saveScore(species, result);
 		}
-		
 		
 		private function onDeactivateHandler(e : Event) : void
 		{

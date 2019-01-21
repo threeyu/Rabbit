@@ -95,7 +95,10 @@ package extmodule.impl.rabbitLearnDraw
 			
 //			trace("[sound]: 学画画");
 			soundManager.playSound(_soundRoot + "titleSound.mp3");
-			TweenLite.delayedCall(2.5, titleSoundCallback);
+			
+			// 跳过引导动画
+//			TweenLite.delayedCall(2.5, titleSoundCallback);
+			TweenLite.delayedCall(2.5, tipsSoundCallback);
 		}
 		
 		private function titleSoundCallback() : void
@@ -205,7 +208,7 @@ package extmodule.impl.rabbitLearnDraw
 				
 				
 				
-				saveScore(20, 20);
+				saveScore(1, 1);
 				dispatch(new PPYEvent(CommandID.EXTMODULE_OVER));
 			});
 		}

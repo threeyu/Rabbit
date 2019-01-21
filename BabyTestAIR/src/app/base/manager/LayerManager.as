@@ -33,7 +33,7 @@ package app.base.manager
 		 */		
 		public var panelLayer : Sprite = new Sprite();
 		/**
-		 * 特效层 如闪烁、飘字之类的
+		 * 特效层 如新手指引、闪烁、飘字之类的
 		 */		
 		public var effectLayer : Sprite = new Sprite();
 		/**

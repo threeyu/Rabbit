@@ -71,18 +71,11 @@ package extmodule.impl.rabbitRecognizeNum
 			
 //			trace("[sound]: 火火兔看图识数");
 			soundManager.playSound(_soundRoot + "titleSound.mp3");
-			TweenMax.delayedCall(4.5, titleSoundCallback);
+			
+			// 跳过引导动画
+			TweenMax.delayedCall(4.5, tipsSoundCallback);
 		}
 		
-		private function titleSoundCallback() : void
-		{
-			_mainUI["mcTips"].gotoAndStop(2);
-			
-			
-//			trace("[sound]: 今天，火火兔要。。。");
-			soundManager.playSound(_soundRoot + "yindao.mp3");
-			TweenMax.delayedCall(9, tipsSoundCallback);
-		}
 		private function tipsSoundCallback() : void
 		{
 			_mainUI["mcTips"].visible = false;
@@ -126,19 +119,16 @@ package extmodule.impl.rabbitRecognizeNum
 		//点击了答题按钮
 		private function answerHandle(e:MouseEvent):void
 		{
-			//读取麦克风数据如果数据为“49”话筒未插入，提示玩家插入话筒，如果读取数据为“48”话筒已插入，可以玩
 			var file:File = File.applicationDirectory.resolvePath("/sys/class/switch/micdet/state");
 			var bateArray:ByteArray=new ByteArray();
 			var fileStream:FileStream = new FileStream();
 			fileStream.open(file, FileMode.READ);
 			fileStream.readBytes(bateArray, 0, fileStream.bytesAvailable);
-			if(String(bateArray[0])=="49"){
-//				trace("[sound]: huatong.mp3");
-				soundManager.stopSoundExpect(_bgm);
-				soundManager.playSound(_soundRoot + "huatong.mp3");
-			}else if(String(bateArray[0])=="48"){
-				
-				
+			// 49(1)正常使用，48(0)系统提示拔掉外接麦克风
+			if(String(bateArray[0])=="48"){
+//				soundManager.stopSoundExpect(_bgm);
+//				soundManager.playSound(_soundRoot + "huatong.mp3");
+			} else if(String(bateArray[0])=="49"){
 				
 				soundManager.stopSound();
 				answerTimes++;

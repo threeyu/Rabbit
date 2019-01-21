@@ -69,18 +69,11 @@ package extmodule.impl.rabbitCircus
 			
 //			trace("[sound]: 寻找马戏团");
 			soundManager.playSound(_soundRoot + "titleSound.mp3");
-			TweenLite.delayedCall(3.5, titleSoundCallback);
+			
+			// 跳过引导动画
+			TweenLite.delayedCall(3.5, tipsSoundCallback);
 		}
 		
-		private function titleSoundCallback() : void
-		{
-			_mainUI["mcTips"].gotoAndStop(2);
-			
-			
-//			trace("[sound]: 哇哦，出发。。。");
-			soundManager.playSound(_soundRoot + "yindao.mp3");
-			TweenLite.delayedCall(10, tipsSoundCallback);
-		}
 		private function tipsSoundCallback() : void
 		{
 			_mainUI["mcTips"].visible = false;
@@ -171,7 +164,7 @@ package extmodule.impl.rabbitCircus
 					
 					if(_curLvl == LVL_NUM)// win
 					{
-						saveScore(50, 100);
+						saveScore(1, 1);
 						
 						dispatch(new PPYEvent(CommandID.EXTMODULE_OVER));
 					}

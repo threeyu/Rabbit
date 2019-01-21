@@ -14,18 +14,20 @@ package app.model.vo
 	public class GameState implements IGameState
 	{
 		
-		private const MAX_SCORE : uint = 300;
 		private var _limitScore : uint = 9999;
 		
-		private var _specArr : Array;			// 去重数组
+		private var _uniArr : Array;			// 去重数组
 		private var _perScoreArr : Array;		// 每关分数
 		private var _age : uint;				// 当前年龄段
 		private var _gate : uint;				// 当前关卡
+		private var _gateScore : Number;		// 当前关卡得分
 		private var _minGate : uint;			// 最小关卡
 		private var _maxGate : uint;			// 最大关卡
 		
 		private var _iconList : Array;			// 图标数组
 		private var _labelList : Array;		// label数组
+		
+		private var _questionPool : Array;		// 题库
 		
 		
 		private var _scoreInfo : Score;
@@ -89,6 +91,29 @@ package app.model.vo
 			_scoreInfo.setupFromLocal(xmlData.children());
 		}
 		
+		public function get MIN_GATE() : uint
+		{
+			return _minGate;
+		}
+		public function set MIN_GATE(value : uint) : void
+		{
+			_minGate = value;
+		}
+		
+		public function get MAX_GATE() : uint
+		{
+			return _maxGate;
+		}
+		public function set MAX_GATE(value : uint) : void
+		{
+			_maxGate = value;
+		}
+		
+		public function get LIMIT_SCORE() : uint
+		{
+			return _limitScore;
+		}
+		
 		public function get age() : uint
 		{
 			return _age;
@@ -107,18 +132,13 @@ package app.model.vo
 			_gate = value;
 		}
 		
-		public function get MIN_GATE() : uint
+		public function get questionPool() : Array
 		{
-			return _minGate;
+			return _questionPool;
 		}
-		public function get MAX_GATE() : uint
+		public function set questionPool(arr : Array) : void
 		{
-			return _maxGate;
-		}
-		
-		public function get LIMIT_SCORE() : uint
-		{
-			return _limitScore;
+			_questionPool = arr;
 		}
 		
 		/**
@@ -151,11 +171,12 @@ package app.model.vo
 		private function setBMList(arr : Array) : Array
 		{
 			var result : Array = [];
-			var gateList : Array = getGateList();
-			for(var i : uint = 0; i < _specArr.length; ++i) {
+			var gateList : Array = this.getAllGate();
+			var uniArr : Array = getUniqueArrByAge(_age);
+			for(var i : uint = 0; i < uniArr.length; ++i) {
 				result[i] = [];
 				for(var j : uint = 0; j < gateList.length; ++j) {
-					if(gateList[j].species == _specArr[i]) {
+					if(gateList[j].species == uniArr[i]) {
 						result[i].push(arr[j]);
 					}
 				}
@@ -164,14 +185,23 @@ package app.model.vo
 			return result;
 		}
 		
+		public function getGateScore() : Number
+		{
+			return _gateScore;
+		}
+		public function setGateScore(value : Number) : void
+		{
+			_gateScore = value;
+		}
 		
 		private function clearList(arr : Array) : void
 		{
-			if(arr && arr.length > 0) {
-				for(var i : uint = 0; i < arr.length; ++i) {
+			if(arr) {
+				var len : uint = arr.length;
+				for(var i : uint = 0; i < len; ++i) {
 					arr[i] = null;
 				}
-				arr.splice(0, arr.length);
+				arr.splice(0, len);
 				arr = null;
 			}
 		}
@@ -261,13 +291,14 @@ package app.model.vo
 		// ----------------------------------------------------------------------
 		
 		/**
-		 * 获取关卡信息表
+		 * 获取年龄段下关卡信息表
 		 * @return 
 		 */		
-		public function getGateList() : Array
+		public function getAllGate() : Array
 		{
 			return _gateInfo.getGateList(_age);
 		}
+		
 		/**
 		 * 获取分数信息表
 		 * @return 
@@ -285,8 +316,9 @@ package app.model.vo
 				}
 			}
 			
-			for(i = 0; i < _specArr.length; ++i) {
-				resultList.push({ species: _specArr[i], score: uint(detailList[_specArr[i]]) });
+			var uniArr : Array = getUniqueArrByAge(_age);
+			for(i = 0; i < uniArr.length; ++i) {
+				resultList.push({ species: uniArr[i], score: uint(detailList[uniArr[i]]) });
 			}
 			
 			
@@ -301,42 +333,56 @@ package app.model.vo
 		{
 			_gateInfo = new Gate();
 			_gateInfo.setupFromLocal(assetList);
+			
+			
+			// 数组去重
+			_uniArr = [];
+			for(var i : uint = 0; i < 3; ++i) {
+				var tmpArr : Array = [];
+				var gList : Array = _gateInfo.getGateList(i);
+				for(var j : uint = 0; j < gList.length; ++j) {
+					tmpArr.push(gList[j].species);
+				}
+				
+				_uniArr[i] = tmpArr.filter(checkRepeat);
+			}
+		}
+		
+		/**
+		 * 返回年龄段下去重数组
+		 * @param age
+		 * @return 
+		 */		
+		public function getUniqueArrByAge(age : uint) : Array
+		{
+			return _uniArr[age];
 		}
 
 		/**
-		 * 设置题目分值、最大关卡数、最小关卡数
+		 * 设置题目分值
 		 */		
 		public function setupScoreDetail() : void
 		{
-			_minGate = _gateInfo.getMinGate(_age);
-			_maxGate = _gateInfo.getMaxGate(_age);
-			
-			
-			
-			clearList(_specArr);
 			clearList(_perScoreArr);
 			_perScoreArr = [];
 			
 			
-			var gateList : Array = _gateInfo.getGateList(_age);
+			var quesList : Array = _questionPool;
 			
-			var tmpArr : Array = [];
 			var i : uint, j : uint;
-			for(i = 0; i < gateList.length; ++i) {
-				tmpArr.push(gateList[i].species);
-			}
-			_specArr = tmpArr.filter(checkRepeat);// 数组去重
+			var uniArr : Array = getUniqueArrByAge(_age);
 			
-			for(i = 0; i < _specArr.length; ++i) {
+			
+			for(i = 0; i < uniArr.length; ++i) {
 				var cnt : uint = 0;
-				for(j = 0; j < gateList.length; ++j) {
-					if(_specArr[i] == gateList[j].species) {
+				for(j = 0; j < quesList.length; ++j) {
+					if(uniArr[i] == quesList[j].species) {
 						cnt++;
 					}
 				}
 				var val : uint = 100 / cnt;
 				_perScoreArr.push({
-					species: _specArr[i],	// 种类
+					species: uniArr[i],		// 种类
 					perScore: val			// 每关分值
 				});
 			}
@@ -358,19 +404,21 @@ package app.model.vo
 					break;
 				}
 			}
+			
+			var uniArr : Array = getUniqueArrByAge(_age);
 			for(i = 0; i < detailList.length(); ++i) {
-				for(j = 0; j < _specArr.length; ++j) {
-					if(i == _specArr[j]) {
+				for(j = 0; j < uniArr.length; ++j) {
+					if(i == uniArr[j]) {
 						resultList.push(uint(detailList[i]));
 						break;
 					}
 				}
 			}
 			
-			var bl : Boolean = true;
+			var bl : Boolean = false;
 			for(i = 0; i < resultList.length; ++i) {
-				if(resultList[i] == _limitScore) {
-					bl = false;
+				if(resultList[i] != _limitScore) {
+					bl = true;
 					break;
 				}
 			}
@@ -386,11 +434,10 @@ package app.model.vo
 		{
 			// 分数
 			var temp : uint, sum : uint;
-			if(_gate == (MAX_GATE - 1)) {
+			if((_gate + 1) % 4 == 0) {
 				temp = _scoreInfo.getScore(_age, species);
 				sum = temp + score;
 				_scoreInfo.setScore(_age, species, sum);
-				
 				
 				// 写文件
 				var xmlData : XML;
@@ -400,12 +447,12 @@ package app.model.vo
 					xmlData = SCORE_TABLE;
 				}
 
-				var scoreList : Array = _scoreInfo.getScoreList(_age);
-				var scoresList : XMLList = xmlData.children();
+				var scoreList : Array = _scoreInfo.getScoreListByAge(_age);
+				var allScoreList : XMLList = xmlData.children();
 				var detailList : XMLList;
-				for(var i : uint = 0; i < scoresList.length(); ++i) {
-					if(_age == uint(scoresList.@age[i])) {
-						detailList = scoresList[i].children();
+				for(var i : uint = 0; i < allScoreList.length(); ++i) {
+					if(_age == uint(allScoreList.@age[i])) {
+						detailList = allScoreList[i].children();
 						for(var j : uint = 0; j < detailList.length(); ++j) {
 							detailList[j] = scoreList[j];
 						}
@@ -413,18 +460,13 @@ package app.model.vo
 					}
 				}
 				
-				_scoreXml = createTable(xmlData);
+				_scoreXml = createTable(xmlData);// 覆盖_scoreXml
+			} else if(_gate % 4 == 0) {
+				_scoreInfo.setScore(_age, species, score);
 			} else {
-				if(_gate == MIN_GATE) {
-
-					_scoreInfo.resetData(_age, _specArr);
-					
-					_scoreInfo.setScore(_age, species, score);
-				} else {
-					temp = _scoreInfo.getScore(_age, species);
-					sum = temp + score;
-					_scoreInfo.setScore(_age, species, sum);
-				}
+				temp = _scoreInfo.getScore(_age, species);
+				sum = temp + score;
+				_scoreInfo.setScore(_age, species, sum);
 			}
 		}
 	

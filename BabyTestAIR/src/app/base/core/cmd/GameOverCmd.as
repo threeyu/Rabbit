@@ -66,7 +66,7 @@ package app.base.core.cmd
 				_frameSp.removeEventListener(Event.ENTER_FRAME, onFrame);
 				_frameSp = null;
 				
-				
+				// 延时3s，无其他意义
 				TweenMax.delayedCall(3, function():void {
 					loadingService.loadEnd();
 					
@@ -81,7 +81,7 @@ package app.base.core.cmd
 		{
 			_iconArr = [];
 			_labelArr = [];
-			var gateList : Array = gameState.getGateList();
+			var gateList : Array = gameState.getAllGate();
 			for(var i : uint = 0; i < gateList.length; ++i) {
 				_iconArr.push(gateList[i].icon);
 				_labelArr.push(gateList[i].label);

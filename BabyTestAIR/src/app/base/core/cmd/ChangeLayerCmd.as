@@ -7,6 +7,7 @@ package app.base.core.cmd
 	import app.conf.constant.CommandID;
 	import app.model.IGamePool;
 	import app.model.vo.BGLayerModel;
+	import app.model.vo.EffectLayerModel;
 	import app.model.vo.LoadLayerModel;
 	import app.model.vo.PanelLayerModel;
 	import app.model.vo.SceneLayerModel;
@@ -34,6 +35,9 @@ package app.base.core.cmd
 		public var panelModel : PanelLayerModel;
 		
 		[Inject]
+		public var effectModel : EffectLayerModel;
+		
+		[Inject]
 		public var loadModel : LoadLayerModel;
 		
 		[Inject]
@@ -56,6 +60,9 @@ package app.base.core.cmd
 					break;
 				case CommandID.CHANGE_PANEL:     // 切换弹框
 					changePanel();
+					break;
+				case CommandID.CHANGE_EFFECT:	 // 切换效果层
+					changeEffect();
 					break;
 				case CommandID.CHANGE_LOAD:      // 切换加载层
 					changeLoad();
@@ -105,6 +112,19 @@ package app.base.core.cmd
 			
 			var newView : DisplayObject = panelModel.getView(evt.info) as DisplayObject;
 			_layerManager.panelLayer.addChild(newView);
+		}
+		// 切换特效层
+		private function changeEffect() : void
+		{
+			if(_layerManager.effectLayer.numChildren > 0) {
+				var curView : IView = _layerManager.effectLayer.getChildAt(0) as IView;
+				if(curView) {
+					_layerManager.effectLayer.removeChild(curView as DisplayObject);
+				}
+			}
+			
+			var newView : DisplayObject = effectModel.getView(evt.info) as DisplayObject;
+			_layerManager.effectLayer.addChild(newView);
 		}
 		// 切换加载层
 		private function changeLoad() : void

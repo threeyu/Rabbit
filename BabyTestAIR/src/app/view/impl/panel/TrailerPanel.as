@@ -30,5 +30,10 @@ package app.view.impl.panel
 		{
 			return _mainUI["btnOK"];
 		}
+		
+		public function mcLvl() : MovieClip
+		{
+			return _mainUI["mcLvl"];
+		}
 	}
 }

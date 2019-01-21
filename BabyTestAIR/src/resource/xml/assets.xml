@@ -3,9 +3,10 @@
 	<level>标签 	@age 			年龄				0 1 2分别对应年龄3-4 4-5 5-6岁
 	
 	<game>标签 	*@id 			编号
-				 @degree 		难度系数		 	0容易 1中等 2困难
+				 @degree 		难度系数		 	0容易 1困难 2无说明
 				*@type			关卡类型			0滑块 1连线 2说话
-				*@species		种类				0观察 1计算 2配对 3专注力 4分类 5顺序 6联想
+				*@isShow		是否在题库内		true/false
+				*@species		题目种类			0观察 1计算 2配对 3专注力 4分类 5顺序 6联想
 				 @name			关卡名字
 				*@packName		app 包名
 				*@icon			app 图标
@@ -23,82 +24,107 @@
  
 <gamelist>
 	<level age="0">
-		<game id="0" degree="0" type="0" species="0" name="火火兔的衣柜" packName="air.HHTYigui" icon="game_0" label="label_0" module="rabbitWardobe" view="WardobeView0"></game>
-		<game id="1" degree="0" type="0" species="0" name="火火兔玩气球" packName="air.HHTQiqiu" icon="game_1" label="label_1" module="rabbitBalloon" view="BalloonView1"></game>
-		<game id="2" degree="2" type="0" species="0" name="火火兔身边的图案" packName="air.HHTuan" icon="game_2" label="label_2" module="rabbitPatternAround" view="PatternAroundView3"></game>
-		<game id="3" degree="2" type="0" species="0" name="火火兔的梦" packName="air.HHTDream" icon="game_3" label="label_3" module="rabbitDream" view="MyDreamView3"></game>
-		<game id="4" degree="1" type="1" species="0" name="火火兔寻找马戏团" packName="air.HHTXunzhaoMaxituan" icon="game_4" label="label_4" module="rabbitCircus" view="FindCircusView0"></game>
-		<game id="5" degree="1" type="0" species="0" name="学画画" packName="air.HHTLearnDraw" icon="game_5" label="label_5" module="rabbitLearnDraw" view="LearnDrawView0"></game>
-		<game id="6" degree="0" type="0" species="2" name="火火兔的早餐" packName="air.HHTZaocan" icon="game_6" label="label_6" module="rabbitBreakfast" view="BreakfastView1"></game>
-		<game id="7" degree="0" type="0" species="2" name="火火兔的早晨" packName="air.HHTZaochen" icon="game_7" label="label_7" module="rabbitMorning" view="MyMorningView1"></game>
-		<game id="8" degree="0" type="0" species="2" name="和火火兔玩游戏" packName="air.HHTPlayGame" icon="game_8" label="label_8" module="rabbitPlayGame" view="PlayGameView1"></game>
-		<game id="9" degree="0" type="0" species="2" name="火火兔爱涂鸦" packName="air.HHTLikeDraw" icon="game_9" label="label_9" module="rabbitLikeDraw" view="LikeDrawView3"></game>
-		<game id="10" degree="1" type="1" species="2" name="美妙的梦境" packName="air.HHTWonderfulDream" icon="game_10" label="label_10" module="rabbitWonderfulDream" view="WonderfulDreamView0"></game>
-		<game id="11" degree="1" type="0" species="0" name="火火兔的玩具" packName="air.HHTToys" icon="game_11" label="label_11" module="rabbitToys" view="MyToysView1"></game>
-		<game id="12" degree="2" type="0" species="2" name="火火兔的卡片贴图" packName="air.HHTKaPian" icon="game_12" label="label_12" module="rabbitCards" view="MyCardsView3"></game>
-		<game id="13" degree="0" type="0" species="2" name="积木变变变" packName="air.HHTBuildingBlocks" icon="game_13" label="label_13" module="rabbitToyBrick" view="ToyBrickView0"></game>
-		<game id="14" degree="2" type="0" species="0" name="火火兔的手工" packName="air.HHTShouGong" icon="game_14" label="label_14" module="rabbitHandwork" view="MyHandwordView3"></game>
-		<game id="15" degree="2" type="0" species="2" name="火火兔废品利用" packName="air.HHTFeijiupinliyong" icon="game_15" label="label_15" module="rabbitRecycling" view="RecyclingView3"></game>
-		<game id="16" degree="1" type="2" species="1" name="火火兔看图识数" packName="air.HHTKantuShushu" icon="game_16" label="label_16" module="rabbitRecognizeNum" view="RecognizeNumView1"></game>
-		<game id="17" degree="1" type="0" species="1" name="火火兔找不同" packName="air.HHTZhaoBuTong" icon="game_17" label="label_17" module="rabbitFindDifference" view="FindDifferView1"></game>
-		<game id="18" degree="1" type="0" species="1" name="早晨爱数数" packName="air.HHTCounting" icon="game_18" label="label_18" module="rabbitCount" view="LikeCountingView1"></game>
-		<game id="19" degree="2" type="0" species="1" name="可爱的乌龟" packName="air.HHTTortoise" icon="game_19" label="label_19" module="rabbitTortoise" view="LovelyTortoiseView3"></game>
-		<game id="20" degree="2" type="0" species="1" name="火火兔的卡片" packName="air.HHTCard" icon="game_20" label="label_20" module="rabbitCards2" view="MyCards2View3"></game>
-		<game id="21" degree="2" type="0" species="1" name="玩一玩，数一数" packName="air.HHTWanYiWan" icon="game_21" label="label_21" module="rabbitPlayAndCount" view="PlayCountView3"></game>
+	<!--
+		<game id="0" degree="0" type="0" isShow="true" species="0" name="火火兔的衣柜" packName="air.HHTYigui" icon="game_0" label="label_0" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="1" degree="0" type="0" isShow="true" species="0" name="火火兔玩气球" packName="air.HHTQiqiu" icon="game_1" label="label_1" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="2" degree="1" type="0" isShow="true" species="0" name="火火兔身边的图案" packName="air.HHTuan" icon="game_2" label="label_2" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="3" degree="1" type="0" isShow="true" species="0" name="火火兔的梦" packName="air.HHTDream" icon="game_3" label="label_3" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="4" degree="2" type="1" isShow="false" species="0" name="火火兔寻找马戏团" packName="air.HHTXunzhaoMaxituan" icon="game_4" label="label_4" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="5" degree="2" type="0" isShow="false" species="0" name="学画画" packName="air.HHTLearnDraw" icon="game_5" label="label_5" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="6" degree="0" type="0" isShow="true" species="2" name="火火兔的早餐" packName="air.HHTZaocan" icon="game_6" label="label_6" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="7" degree="0" type="0" isShow="true" species="2" name="火火兔的早晨" packName="air.HHTZaochen" icon="game_7" label="label_7" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="8" degree="0" type="0" isShow="true" species="2" name="和火火兔玩游戏" packName="air.HHTPlayGame" icon="game_8" label="label_8" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="9" degree="1" type="0" isShow="true" species="2" name="火火兔爱涂鸦" packName="air.HHTLikeDraw" icon="game_9" label="label_9" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="10" degree="2" type="1" isShow="false" species="2" name="美妙的梦境" packName="air.HHTWonderfulDream" icon="game_10" label="label_10" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="11" degree="0" type="0" isShow="true" species="0" name="火火兔的玩具" packName="air.HHTToys" icon="game_11" label="label_11" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="12" degree="1" type="0" isShow="true" species="2" name="火火兔的卡片贴图" packName="air.HHTKaPian" icon="game_12" label="label_12" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="13" degree="2" type="0" isShow="false" species="2" name="积木变变变" packName="air.HHTBuildingBlocks" icon="game_13" label="label_13" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="14" degree="1" type="0" isShow="true" species="0" name="火火兔的手工" packName="air.HHTShouGong" icon="game_14" label="label_14" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="15" degree="1" type="0" isShow="true" species="2" name="火火兔废品利用" packName="air.HHTFeijiupinliyong" icon="game_15" label="label_15" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="16" degree="0" type="2" isShow="true" species="1" name="火火兔看图识数" packName="air.HHTKantuShushu" icon="game_16" label="label_16" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="17" degree="0" type="0" isShow="true" species="1" name="火火兔找不同" packName="air.HHTZhaoBuTong" icon="game_17" label="label_17" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="18" degree="0" type="0" isShow="true" species="1" name="早晨爱数数" packName="air.HHTCounting" icon="game_18" label="label_18" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="19" degree="1" type="0" isShow="true" species="1" name="可爱的乌龟" packName="air.HHTTortoise" icon="game_19" label="label_19" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="20" degree="1" type="0" isShow="true" species="1" name="火火兔的卡片" packName="air.HHTCard" icon="game_20" label="label_20" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="21" degree="1" type="0" isShow="true" species="1" name="玩一玩，数一数" packName="air.HHTWanYiWan" icon="game_21" label="label_21" module="rabbitWardobe" view="WardobeView0"></game>
+	 -->
+		<game id="0" degree="0" type="0" isShow="true" species="0" name="火火兔的衣柜" packName="air.HHTYigui" icon="game_0" label="label_0" module="rabbitWardobe" view="WardobeView0"></game>
+		<game id="1" degree="0" type="0" isShow="true" species="0" name="火火兔玩气球" packName="air.HHTQiqiu" icon="game_1" label="label_1" module="rabbitBalloon" view="BalloonView1"></game>
+		<game id="2" degree="1" type="0" isShow="true" species="0" name="火火兔身边的图案" packName="air.HHTuan" icon="game_2" label="label_2" module="rabbitPatternAround" view="PatternAroundView3"></game>
+		<game id="3" degree="1" type="0" isShow="true" species="0" name="火火兔的梦" packName="air.HHTDream" icon="game_3" label="label_3" module="rabbitDream" view="MyDreamView3"></game>
+		<game id="4" degree="2" type="1" isShow="false" species="0" name="火火兔寻找马戏团" packName="air.HHTXunzhaoMaxituan" icon="game_4" label="label_4" module="rabbitCircus" view="FindCircusView0"></game>
+		<game id="5" degree="2" type="0" isShow="false" species="0" name="学画画" packName="air.HHTLearnDraw" icon="game_5" label="label_5" module="rabbitLearnDraw" view="LearnDrawView0"></game>
+		<game id="6" degree="0" type="0" isShow="true" species="2" name="火火兔的早餐" packName="air.HHTZaocan" icon="game_6" label="label_6" module="rabbitBreakfast" view="BreakfastView1"></game>
+		<game id="7" degree="0" type="0" isShow="true" species="2" name="火火兔的早晨" packName="air.HHTZaochen" icon="game_7" label="label_7" module="rabbitMorning" view="MyMorningView1"></game>
+		<game id="8" degree="0" type="0" isShow="true" species="2" name="和火火兔玩游戏" packName="air.HHTPlayGame" icon="game_8" label="label_8" module="rabbitPlayGame" view="PlayGameView1"></game>
+		<game id="9" degree="1" type="0" isShow="true" species="2" name="火火兔爱涂鸦" packName="air.HHTLikeDraw" icon="game_9" label="label_9" module="rabbitLikeDraw" view="LikeDrawView3"></game>
+		<game id="10" degree="2" type="1" isShow="false" species="2" name="美妙的梦境" packName="air.HHTWonderfulDream" icon="game_10" label="label_10" module="rabbitWonderfulDream" view="WonderfulDreamView0"></game>
+		<game id="11" degree="0" type="0" isShow="true" species="0" name="火火兔的玩具" packName="air.HHTToys" icon="game_11" label="label_11" module="rabbitToys" view="MyToysView1"></game>
+		<game id="12" degree="1" type="0" isShow="true" species="2" name="火火兔的卡片贴图" packName="air.HHTKaPian" icon="game_12" label="label_12" module="rabbitCards" view="MyCardsView3"></game>
+		<game id="13" degree="2" type="0" isShow="false" species="2" name="积木变变变" packName="air.HHTBuildingBlocks" icon="game_13" label="label_13" module="rabbitToyBrick" view="ToyBrickView0"></game>
+		<game id="14" degree="1" type="0" isShow="true" species="0" name="火火兔的手工" packName="air.HHTShouGong" icon="game_14" label="label_14" module="rabbitHandwork" view="MyHandwordView3"></game>
+		<game id="15" degree="1" type="0" isShow="true" species="2" name="火火兔废品利用" packName="air.HHTFeijiupinliyong" icon="game_15" label="label_15" module="rabbitRecycling" view="RecyclingView3"></game>
+		<game id="16" degree="0" type="2" isShow="true" species="1" name="火火兔看图识数" packName="air.HHTKantuShushu" icon="game_16" label="label_16" module="rabbitRecognizeNum" view="RecognizeNumView1"></game>
+		<game id="17" degree="0" type="0" isShow="true" species="1" name="火火兔找不同" packName="air.HHTZhaoBuTong" icon="game_17" label="label_17" module="rabbitFindDifference" view="FindDifferView1"></game>
+		<game id="18" degree="0" type="0" isShow="true" species="1" name="早晨爱数数" packName="air.HHTCounting" icon="game_18" label="label_18" module="rabbitCount" view="LikeCountingView1"></game>
+		<game id="19" degree="1" type="0" isShow="true" species="1" name="可爱的乌龟" packName="air.HHTTortoise" icon="game_19" label="label_19" module="rabbitTortoise" view="LovelyTortoiseView3"></game>
+		<game id="20" degree="1" type="0" isShow="true" species="1" name="火火兔的卡片" packName="air.HHTCard" icon="game_20" label="label_20" module="rabbitCards2" view="MyCards2View3"></game>
+		<game id="21" degree="1" type="0" isShow="true" species="1" name="玩一玩，数一数" packName="air.HHTWanYiWan" icon="game_21" label="label_21" module="rabbitPlayAndCount" view="PlayCountView3"></game>
+	
 	</level>
 	<level age="1">
-		<game id="0" degree="0" type="0" species="2" name="学交通，过马路" packName="air.HHTTraffic" icon="game_22" label="label_22" module="rabbitTraffic" view="TrafficLearnView1"></game>
-		<game id="1" degree="0" type="0" species="2" name="学交通知识" packName="air.HHTTrafficKnow" icon="game_23" label="label_23" module="rabbitTraffic2" view="TrafficKnowView1"></game>
-		<game id="2" degree="2" type="0" species="2" name="骑车的安全知识" packName="air.HHTQicheAnquan" icon="game_24" label="label_24" module="rabbitBicycleSafety" view="BicycleSafetyView3"></game>
-		<game id="3" degree="0" type="0" species="2" name="认识交通标志" packName="air.HHTTuBiao" icon="game_25" label="label_25" module="rabbitTraffic3" view="TrafficSymbolView0"></game>
-		<game id="4" degree="2" type="0" species="2" name="交通中的颜色" packName="air.HHTTrafficColor" icon="game_26" label="label_26" module="rabbitTraffic4" view="TrafficColorView3"></game>
-		<game id="5" degree="0" type="2" species="2" name="宠物手册" packName="air.HHTPetShouce" icon="game_27" label="label_27" module="rabbitPetManual" view="PetManualView0"></game>
-		<game id="6" degree="1" type="0" species="2" name="我懂小宠物" packName="air.HHTWodongPet" icon="game_28" label="label_28" module="rabbitPet" view="MyPetView1"></game>
-		<game id="7" degree="0" type="1" species="3" name="小动物找食物" packName="air.RabbitDrawLine3" icon="game_29" label="label_29" module="rabbitLineUp" view="FindFoodView0"></game>
-		<game id="8" degree="0" type="0" species="2" name="认动物，学算术" packName="air.HHTRenXue" icon="game_30" label="label_30" module="rabbitAnimalMath" view="AnimalMathView0"></game>
-		<game id="9" degree="2" type="0" species="2" name="奇妙的动物" packName="air.HHTQimiaodexdw" icon="game_31" label="label_31" module="rabbitAnimalFantastic" view="AnimalFantasticView3"></game>
-		<game id="10" degree="1" type="0" species="4" name="今天我当家" packName="air.HHTWodangjia" icon="game_32" label="label_32" module="rabbitMaganaHouse" view="MaganaHouseView1"></game>
-		<game id="11" degree="1" type="0" species="4" name="忙碌的周末" packName="air.HHTMangludezm" icon="game_33" label="label_33" module="rabbitBusyWeekend" view="BusyWeekendView1"></game>
-		<game id="12" degree="0" type="0" species="2" name="看一看找一找" packName="air.HHTKanyikanzyz" icon="game_34" label="label_34" module="rabbitLookAndFind" view="LookAndFindView0"></game>
-		<game id="13" degree="2" type="0" species="4" name="我爱填色" packName="air.HHTWoaitianse" icon="game_35" label="label_35" module="rabbitFillColor2" view="LikeFillColorView3"></game>
-		<game id="14" degree="0" type="1" species="2" name="火火兔连连看" packName="air.RabbitLineUp" icon="game_36" label="label_36" module="rabbitLineUp2" view="TryAndLineView0"></game>
-		<game id="15" degree="1" type="0" species="3" name="游乐场的一天" packName="air.HHTYoulechangdyt" icon="game_37" label="label_37" module="rabbitPlaygroundDay" view="PlaygroundDayView1"></game>
-		<game id="16" degree="1" type="0" species="3" name="有趣的游乐场" packName="air.HHTYouquylc" icon="game_38" label="label_38" module="rabbitPlaygroundFun" view="PlaygroundFunView1"></game>
-		<game id="17" degree="2" type="0" species="3" name="观察填色" packName="air.HHTGuanchatianse" icon="game_39" label="label_39" module="rabbitFillColor3" view="ObserveFillColorView3"></game>
-		<game id="18" degree="0" type="0" species="3" name="看连线填颜色" packName="air.HHTKanlxTianys" icon="game_40" label="label_40" module="rabbitFillColor4" view="LookAndFillColorView0"></game>
-		<game id="19" degree="0" type="0" species="2" name="生日聚会" packName="air.HHTShengrijuhui" icon="game_41" label="label_41" module="rabbitBirthdayParty" view="BirthdayPartyView2"></game>
-		<game id="20" degree="0" type="0" species="2" name="玩具找找看" packName="air.HHTWanjuzhaozhao" icon="game_42" label="label_42" module="rabbitToys2" view="FindMyToysView0"></game>
-		<game id="21" degree="0" type="0" species="3" name="多样的图形" packName="air.HHTDuoyangdetuxing" icon="game_43" label="label_43" module="rabbitManyShape" view="ManyShapeView0"></game>
-		<game id="22" degree="0" type="0" species="3" name="同型来填色" packName="air.HHTTongxinglts" icon="game_44" label="label_44" module="rabbitFillColor" view="FillColorShapeView0"></game>
-		<game id="23" degree="2" type="0" species="3" name="积木王国" packName="air.HHTJimuwangguo" icon="game_45" label="label_45" module="rabbitBlockKingdom" view="BlockKingdomView3"></game>
-		<game id="24" degree="0" type="0" species="2" name="我来学搭配" packName="air.HHTWolaixuedapei" icon="game_46" label="label_46" module="rabbitLearnMatch" view="LearnMatchView0"></game>
-		<game id="25" degree="1" type="1" species="3" name="火火兔的舞会" packName="air.RabbitDrawLine" icon="game_67" label="label_67" module="rabbitLineUp3" view="DancePartyView1"></game>
-		<game id="26" degree="0" type="1" species="3" name="数一数" packName="air.RabbitFindDiff5" icon="game_68" label="label_68" module="rabbitFindAndCount" view="FindAndCountView0"></game>
-		<game id="27" degree="0" type="1" species="3" name="奇怪真奇怪" packName="air.RabbitFindDiff" icon="game_69" label="label_69" module="rabbitStrangeWeek" view="StrangeWeekView0"></game>
-		<game id="28" degree="2" type="1" species="3" name="找不同" packName="air.RabbitFindDiff2" icon="game_70" label="label_70" module="rabbitFindDifference2" view="FindSomeDiffView1"></game>
-		<game id="29" degree="2" type="1" species="3" name="配一配" packName="air.RabbitMatch" icon="game_71" label="label_71" module="rabbitFindAndMatch" view="FindAndMatchView1"></game>
-		<game id="30" degree="0" type="1" species="3" name="知识竞赛" packName="air.RabbitFindDiff4" icon="game_72" label="label_72" module="rabbitFindDifference3" view="KnowledgeRaceView0"></game>
+		<game id="0" degree="0" type="0" isShow="true" species="2" name="学交通，过马路" packName="air.HHTTraffic" icon="game_22" label="label_22" module="rabbitTraffic" view="TrafficLearnView1"></game>
+		<game id="1" degree="0" type="0" isShow="true" species="2" name="学交通知识" packName="air.HHTTrafficKnow" icon="game_23" label="label_23" module="rabbitTraffic2" view="TrafficKnowView1"></game>
+		<game id="2" degree="2" type="0" isShow="true" species="2" name="骑车的安全知识" packName="air.HHTQicheAnquan" icon="game_24" label="label_24" module="rabbitBicycleSafety" view="BicycleSafetyView3"></game>
+		<game id="3" degree="0" type="0" isShow="true" species="2" name="认识交通标志" packName="air.HHTTuBiao" icon="game_25" label="label_25" module="rabbitTraffic3" view="TrafficSymbolView0"></game>
+		<game id="4" degree="2" type="0" isShow="true" species="2" name="交通中的颜色" packName="air.HHTTrafficColor" icon="game_26" label="label_26" module="rabbitTraffic4" view="TrafficColorView3"></game>
+		<game id="5" degree="0" type="2" isShow="true" species="2" name="宠物手册" packName="air.HHTPetShouce" icon="game_27" label="label_27" module="rabbitPetManual" view="PetManualView0"></game>
+		<game id="6" degree="1" type="0" isShow="true" species="2" name="我懂小宠物" packName="air.HHTWodongPet" icon="game_28" label="label_28" module="rabbitPet" view="MyPetView1"></game>
+		<game id="7" degree="0" type="1" isShow="true" species="3" name="小动物找食物" packName="air.RabbitDrawLine3" icon="game_29" label="label_29" module="rabbitLineUp" view="FindFoodView0"></game>
+		<game id="8" degree="0" type="0" isShow="true" species="2" name="认动物，学算术" packName="air.HHTRenXue" icon="game_30" label="label_30" module="rabbitAnimalMath" view="AnimalMathView0"></game>
+		<game id="9" degree="2" type="0" isShow="true" species="2" name="奇妙的动物" packName="air.HHTQimiaodexdw" icon="game_31" label="label_31" module="rabbitAnimalFantastic" view="AnimalFantasticView3"></game>
+		<game id="10" degree="1" type="0" isShow="true" species="4" name="今天我当家" packName="air.HHTWodangjia" icon="game_32" label="label_32" module="rabbitMaganaHouse" view="MaganaHouseView1"></game>
+		<game id="11" degree="1" type="0" isShow="true" species="4" name="忙碌的周末" packName="air.HHTMangludezm" icon="game_33" label="label_33" module="rabbitBusyWeekend" view="BusyWeekendView1"></game>
+		<game id="12" degree="0" type="0" isShow="true" species="2" name="看一看找一找" packName="air.HHTKanyikanzyz" icon="game_34" label="label_34" module="rabbitLookAndFind" view="LookAndFindView0"></game>
+		<game id="13" degree="2" type="0" isShow="true" species="4" name="我爱填色" packName="air.HHTWoaitianse" icon="game_35" label="label_35" module="rabbitFillColor2" view="LikeFillColorView3"></game>
+		<game id="14" degree="0" type="1" isShow="true" species="2" name="火火兔连连看" packName="air.RabbitLineUp" icon="game_36" label="label_36" module="rabbitLineUp2" view="TryAndLineView0"></game>
+		<game id="15" degree="1" type="0" isShow="true" species="3" name="游乐场的一天" packName="air.HHTYoulechangdyt" icon="game_37" label="label_37" module="rabbitPlaygroundDay" view="PlaygroundDayView1"></game>
+		<game id="16" degree="1" type="0" isShow="true" species="3" name="有趣的游乐场" packName="air.HHTYouquylc" icon="game_38" label="label_38" module="rabbitPlaygroundFun" view="PlaygroundFunView1"></game>
+		<game id="17" degree="2" type="0" isShow="true" species="3" name="观察填色" packName="air.HHTGuanchatianse" icon="game_39" label="label_39" module="rabbitFillColor3" view="ObserveFillColorView3"></game>
+		<game id="18" degree="0" type="0" isShow="true" species="3" name="看连线填颜色" packName="air.HHTKanlxTianys" icon="game_40" label="label_40" module="rabbitFillColor4" view="LookAndFillColorView0"></game>
+		<game id="19" degree="0" type="0" isShow="true" species="2" name="生日聚会" packName="air.HHTShengrijuhui" icon="game_41" label="label_41" module="rabbitBirthdayParty" view="BirthdayPartyView2"></game>
+		<game id="20" degree="0" type="0" isShow="true" species="2" name="玩具找找看" packName="air.HHTWanjuzhaozhao" icon="game_42" label="label_42" module="rabbitToys2" view="FindMyToysView0"></game>
+		<game id="21" degree="0" type="0" isShow="true" species="3" name="多样的图形" packName="air.HHTDuoyangdetuxing" icon="game_43" label="label_43" module="rabbitManyShape" view="ManyShapeView0"></game>
+		<game id="22" degree="0" type="0" isShow="true" species="3" name="同型来填色" packName="air.HHTTongxinglts" icon="game_44" label="label_44" module="rabbitFillColor" view="FillColorShapeView0"></game>
+		<game id="23" degree="2" type="0" isShow="true" species="3" name="积木王国" packName="air.HHTJimuwangguo" icon="game_45" label="label_45" module="rabbitBlockKingdom" view="BlockKingdomView3"></game>
+		<game id="24" degree="0" type="0" isShow="true" species="2" name="我来学搭配" packName="air.HHTWolaixuedapei" icon="game_46" label="label_46" module="rabbitLearnMatch" view="LearnMatchView0"></game>
+		<game id="25" degree="1" type="1" isShow="true" species="3" name="火火兔的舞会" packName="air.RabbitDrawLine" icon="game_67" label="label_67" module="rabbitLineUp3" view="DancePartyView1"></game>
+		<game id="26" degree="0" type="1" isShow="true" species="3" name="数一数" packName="air.RabbitFindDiff5" icon="game_68" label="label_68" module="rabbitFindAndCount" view="FindAndCountView0"></game>
+		<game id="27" degree="0" type="1" isShow="true" species="3" name="奇怪真奇怪" packName="air.RabbitFindDiff" icon="game_69" label="label_69" module="rabbitStrangeWeek" view="StrangeWeekView0"></game>
+		<game id="28" degree="2" type="1" isShow="true" species="3" name="找不同" packName="air.RabbitFindDiff2" icon="game_70" label="label_70" module="rabbitFindDifference2" view="FindSomeDiffView1"></game>
+		<game id="29" degree="2" type="1" isShow="true" species="3" name="配一配" packName="air.RabbitMatch" icon="game_71" label="label_71" module="rabbitFindAndMatch" view="FindAndMatchView1"></game>
+		<game id="30" degree="0" type="1" isShow="true" species="3" name="知识竞赛" packName="air.RabbitFindDiff4" icon="game_72" label="label_72" module="rabbitFindDifference3" view="KnowledgeRaceView0"></game>
 	</level>
 	<level age="2">
-		<game id="0" degree="0" type="0" species="5" name="观察小能手" packName="air.HHTGuanchaxiaonengshou" icon="game_47" label="label_47" module="rabbitObservedBoy" view="ObservedBoyView0"></game>
-		<game id="1" degree="0" type="0" species="5" name="大家来匹配" packName="air.HHTDajialaipipei" icon="game_48" label="label_48" module="rabbitPlayMatch" view="PlayMatchView0"></game>
-		<game id="2" degree="0" type="0" species="5" name="看一看，排一排" packName="air.Kanyikanpyp" icon="game_49" label="label_49" module="rabbitWatchAndArray" view="WatchAndArrayView0"></game>
-		<game id="3" degree="0" type="0" species="5" name="镜子里的颜色" packName="air.HHTJingzilideys" icon="game_50" label="label_50" module="rabbitColorInMirror" view="ColorInMirrorView0"></game>
-		<game id="4" degree="2" type="1" species="5" name="情景连一连" packName="air.RabbitLineUp2" icon="game_51" label="label_51" module="rabbitLineUp4" view="SceneLineUpView3"></game>
-		<game id="5" degree="0" type="0" species="6" name="逛动物园" packName="air.HHTGuangdongwuyuan" icon="game_52" label="label_52" module="rabbitPlayInZoo" view="PlayInZooView0"></game>
-		<game id="6" degree="0" type="2" species="6" name="有趣的动物" packName="air.HHTYouqudedongwu" icon="game_53" label="label_53" module="rabbitFunAnimals" view="FunAnimalsView0"></game>
-		<game id="7" degree="0" type="0" species="6" name="食物分配" packName="air.HHTShiwufenpei" icon="game_54" label="label_54" module="rabbitFoodAssort" view="FoodAssortView0"></game>
-		<game id="8" degree="0" type="1" species="6" name="有趣的顺序" packName="air.RabbitFunnySeq" icon="game_55" label="label_55" module="rabbitFunSeq" view="FunSeqView0"></game>
-		<game id="9" degree="0" type="0" species="6" name="观察小动物" packName="air.HHTBianRenDongWu" icon="game_56" label="label_56" module="rabbitToObAnimals" view="ToObAnimalsView0"></game>
-		<game id="10" degree="0" type="0" species="6" name="农场里的一天" packName="air.HHTNongChangYiTian" icon="game_57" label="label_57" module="rabbitFarmDay" view="FarmDayView0"></game>
-		<game id="11" degree="0" type="0" species="1" name="找一找数一数" packName="air.HHTZhaoYiZhao" icon="game_58" label="label_58" module="rabbitFindCount" view="FindCountView0"></game>
-		<game id="12" degree="0" type="2" species="1" name="有趣的农场" packName="air.HHTYouqudeNongchang" icon="game_59" label="label_59" module="rabbitFunFarm" view="FunFarmView0"></game>
-		<game id="13" degree="0" type="0" species="1" name="仔细瞧一瞧" packName="air.HHTZiXiQiaoYiQiao" icon="game_60" label="label_60" module="rabbitLookCareful" view="LookCarefulView0"></game>
-		<game id="14" degree="2" type="1" species="1" name="忙碌的农场" packName="air.RabbitLineUp3" icon="game_61" label="label_61" module="rabbitLineUp5" view="BusyFarmView3"></game>
-		<game id="15" degree="0" type="0" species="1" name="数数与对应" packName="air.HHTShuShuYuDuiYing" icon="game_62" label="label_62" module="rabbitCountAndRight" view="CountAndRightView0"></game>
-		<game id="16" degree="0" type="0" species="1" name="我来认数字" packName="air.HHTWoLaiRenShuZi" icon="game_63" label="label_63" module="rabbitPlayNumber" view="PlayNumberView0"></game>
-		<game id="17" degree="0" type="0" species="1" name="我爱写数字" packName="air.HHTWoAiXieShuZi" icon="game_64" label="label_64" module="rabbitLikeWriting" view="LikeWritingView0"></game>
-		<game id="18" degree="0" type="0" species="1" name="数字小世界" packName="air.HHTShuZiXiaoShiJie" icon="game_65" label="label_65" module="rabbitNumberWorld" view="NumberWorldView0"></game>
-		<game id="19" degree="0" type="0" species="1" name="数字的组合" packName="air.HHTShuZiDeZuHe" icon="game_66" label="label_66" module="rabbitNumberMatch" view="NumberMatchView0"></game>
+		<game id="0" degree="0" type="0" isShow="true" species="5" name="观察小能手" packName="air.HHTGuanchaxiaonengshou" icon="game_47" label="label_47" module="rabbitObservedBoy" view="ObservedBoyView0"></game>
+		<game id="1" degree="0" type="0" isShow="true" species="5" name="大家来匹配" packName="air.HHTDajialaipipei" icon="game_48" label="label_48" module="rabbitPlayMatch" view="PlayMatchView0"></game>
+		<game id="2" degree="0" type="0" isShow="true" species="5" name="看一看，排一排" packName="air.Kanyikanpyp" icon="game_49" label="label_49" module="rabbitWatchAndArray" view="WatchAndArrayView0"></game>
+		<game id="3" degree="0" type="0" isShow="true" species="5" name="镜子里的颜色" packName="air.HHTJingzilideys" icon="game_50" label="label_50" module="rabbitColorInMirror" view="ColorInMirrorView0"></game>
+		<game id="4" degree="2" type="1" isShow="true" species="5" name="情景连一连" packName="air.RabbitLineUp2" icon="game_51" label="label_51" module="rabbitLineUp4" view="SceneLineUpView3"></game>
+		<game id="5" degree="0" type="0" isShow="true" species="6" name="逛动物园" packName="air.HHTGuangdongwuyuan" icon="game_52" label="label_52" module="rabbitPlayInZoo" view="PlayInZooView0"></game>
+		<game id="6" degree="0" type="2" isShow="true" species="6" name="有趣的动物" packName="air.HHTYouqudedongwu" icon="game_53" label="label_53" module="rabbitFunAnimals" view="FunAnimalsView0"></game>
+		<game id="7" degree="0" type="0" isShow="true" species="6" name="食物分配" packName="air.HHTShiwufenpei" icon="game_54" label="label_54" module="rabbitFoodAssort" view="FoodAssortView0"></game>
+		<game id="8" degree="0" type="1" isShow="true" species="6" name="有趣的顺序" packName="air.RabbitFunnySeq" icon="game_55" label="label_55" module="rabbitFunSeq" view="FunSeqView0"></game>
+		<game id="9" degree="0" type="0" isShow="true" species="6" name="观察小动物" packName="air.HHTBianRenDongWu" icon="game_56" label="label_56" module="rabbitToObAnimals" view="ToObAnimalsView0"></game>
+		<game id="10" degree="0" type="0" isShow="true" species="6" name="农场里的一天" packName="air.HHTNongChangYiTian" icon="game_57" label="label_57" module="rabbitFarmDay" view="FarmDayView0"></game>
+		<game id="11" degree="0" type="0" isShow="true" species="1" name="找一找数一数" packName="air.HHTZhaoYiZhao" icon="game_58" label="label_58" module="rabbitFindCount" view="FindCountView0"></game>
+		<game id="12" degree="0" type="2" isShow="true" species="1" name="有趣的农场" packName="air.HHTYouqudeNongchang" icon="game_59" label="label_59" module="rabbitFunFarm" view="FunFarmView0"></game>
+		<game id="13" degree="0" type="0" isShow="true" species="1" name="仔细瞧一瞧" packName="air.HHTZiXiQiaoYiQiao" icon="game_60" label="label_60" module="rabbitLookCareful" view="LookCarefulView0"></game>
+		<game id="14" degree="2" type="1" isShow="true" species="1" name="忙碌的农场" packName="air.RabbitLineUp3" icon="game_61" label="label_61" module="rabbitLineUp5" view="BusyFarmView3"></game>
+		<game id="15" degree="0" type="0" isShow="true" species="1" name="数数与对应" packName="air.HHTShuShuYuDuiYing" icon="game_62" label="label_62" module="rabbitCountAndRight" view="CountAndRightView0"></game>
+		<game id="16" degree="0" type="0" isShow="true" species="1" name="我来认数字" packName="air.HHTWoLaiRenShuZi" icon="game_63" label="label_63" module="rabbitPlayNumber" view="PlayNumberView0"></game>
+		<game id="17" degree="0" type="0" isShow="true" species="1" name="我爱写数字" packName="air.HHTWoAiXieShuZi" icon="game_64" label="label_64" module="rabbitLikeWriting" view="LikeWritingView0"></game>
+		<game id="18" degree="0" type="0" isShow="true" species="1" name="数字小世界" packName="air.HHTShuZiXiaoShiJie" icon="game_65" label="label_65" module="rabbitNumberWorld" view="NumberWorldView0"></game>
+		<game id="19" degree="0" type="0" isShow="true" species="1" name="数字的组合" packName="air.HHTShuZiDeZuHe" icon="game_66" label="label_66" module="rabbitNumberMatch" view="NumberMatchView0"></game>
 	</level>
 </gamelist>

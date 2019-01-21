@@ -93,7 +93,10 @@ package extmodule.impl.rabbitLikeDraw
 			
 //			trace("[sound]: 火火兔爱涂鸦");
 			soundManager.playSound(_soundRoot + "titleSound.mp3");
-			TweenLite.delayedCall(3.5, titleSoundCallback);
+			
+			// 跳过引导动画
+//			TweenLite.delayedCall(3.5, titleSoundCallback);
+			TweenLite.delayedCall(3.5, tipsSoundCallback);
 		}
 		
 		private function titleSoundCallback() : void

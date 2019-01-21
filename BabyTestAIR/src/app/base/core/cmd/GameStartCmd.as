@@ -5,6 +5,7 @@ package app.base.core.cmd
 	import app.base.core.event.PPYEvent;
 	import app.conf.constant.CommandID;
 	import app.model.IGameState;
+	import app.view.impl.effect.NewPlayerGuideView;
 	
 	import robotlegs.bender.bundles.mvcs.Command;
 	
@@ -32,22 +33,19 @@ package app.base.core.cmd
 		
 		private function gameStart() : void
 		{
-			if(gameState.MIN_GATE < gameState.MAX_GATE) {
-				var _startId : uint = gameState.MIN_GATE;
-				var list : Array = gameState.getGateList();
-				var obj : Object;
-				
-				gameState.gate = _startId;
-				for each(var item : Object in list) {
-					if(_startId == item.id) {
-						obj = item;
-						break;
-					}
-				}
-				
-				
-				eventDispatcher.dispatchEvent(new PPYEvent(CommandID.EXTMODULE_START, obj));
-			}
+			var startId : uint = 0;
+			
+			// 生成题库
+			eventDispatcher.dispatchEvent(new PPYEvent(CommandID.INIT_QUESTION_POOL, startId));
+
+			// 新手指引
+			eventDispatcher.dispatchEvent(new PPYEvent(CommandID.CHANGE_EFFECT, NewPlayerGuideView));
 		}
+		
+		
+		
+		
+		
+		
 	}
 }
