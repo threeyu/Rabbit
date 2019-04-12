@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Arial, Arial, Helvetica, Verdana, sans-serif;
+	font-size: 10pt;
+}
+body {
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+h1 {
+	font-size: large;
+	font-weight: bold;
+}
+h2 {
+	font-size: medium;
+	font-weight: bold;
+}
+li {
+	list-style-position: outside;
+	margin-left: 1.8em;
+	margin-right: 1.8em;
+}
+ol, ul {
+	margin-left: 0;
+	padding-left: 0;
+	text-indent: 0;
+}
+.term {
+	color: #336699;
+}
+.code, pre {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	color: #333333;
+	font-size: small;
+	background-color: #EEEEEE;
+	padding-top: 4px;
+	padding-right: 10px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+}
+.key {
+	font-family: Consolas, "Courier New", Courier, monospace;
+	font-weight: bold;
+	color: #003366;
+	font-size: small;
+}
+-->
+</style>
+</head>
+
+<body>
+<ol>
+  <li><a href="index.html#about">About</a></li>
+  <li><a href="index.html#quickstart">Quickstart</a></li>
+  <li><strong>Alcon
+    Console</strong>
+    <ol>
+      <li><a href="index.html#menu">Menu</a></li>
+      <li><a href="index.html#appmonitor">App Monitor</a></li>
+      <li><a href="index.html#keyboardshortcuts">Keyboard Shortcuts</a></li>
+    </ol>
+  </li>
+  <li><strong>Debug API</strong>
+    <ol>
+      <li><a href="index.html#apiinstallation">API Installation</a></li>
+      <li><a href="../api/class-summary.html">API Documentation</a></li>
+    </ol>
+  </li>
+  <li><strong>External Links</strong>
+    <ol>
+      <li><a href="http://blog.hexagonstar.com/alcon/">Alcon Website</a></li>
+      <li><a href="http://forums.hexagonstar.com/">Alcon Support Forum</a></li>
+    </ol>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<hr />
+<p>&nbsp;</p>
+<h2><a name="about" id="about"></a>1. About</h2>
+<p>Alcon is a Debugging Tool for ActionScript developers that provides several straightforward and quickly accessible methods to debug and monitor any ActionScript 2 or ActionScript 3 application. It consists of two parts:  the Alcon Console which is used as an output receiver and the Debugging API which is being imported into any debugable code and sends debug data to the Alcon Console.</p>
+<p>At it's most basic use Alcon provides a trace method similar to ActionScript's own trace method with that any output can be sent to Alcon's trace logger but it also offers other features like an Object Inspector to list the propertties of any object, an App Monitor to monitor frame rate and memory usage and File Loggers to constantly monitor log files. Alcon can be used with  the Flex compiler, the Flash IDE or MTASC.</p>
+<p>&nbsp;</p>
+<hr />
+<p>&nbsp;</p>
+<h2><a name="quickstart" id="quickstart"></a>2. Quickstart</h2>
+<p>First  follow the <a href="index.html#apiinstallation">API Installation Steps</a>. Once that's done, using Alcon it is  straightforward! The static Debug API can be used in any ActionScript 2 and 3 class by simply importing the Debug class with:</p>
+<pre>import com.hexagonstar.util.debug.Debug;</pre>
+<p>... and then using any of the Debug class methods anywhere in your class, most commonly trace:</p>
+<p class="code">Debug.trace(&quot;Never trust a computer you can't throw out a window.&quot;);</p>
+<p>Please check the <a href="../api/com/hexagonstar/util/debug/Debug.html">API Documentation</a> for a full list of supported methods and their details.</p>
+<p>&nbsp;</p>
+<hr />
+<p>&nbsp;</p>
+<h2><a name="menu" id="menu"></a>3.1 Menu</h2>
+<ul>
+  <li><strong>Log</strong>
+    <ul>
+      <li><strong>Pause</strong> - Pauses all components. The App Monitor is not affected by this.</li>
+      <li><strong>Clear</strong> - Clears all output panels and the Object Inspector.</li>
+      <li><strong>Reset</strong> - Resets the Console. All components are being brought to the initial state.</li>
+      <li><strong>Options...</strong> - Opens the Options Dialog.</li>
+      <li><strong>Exit</strong> - Quits the application.</li>
+    </ul>
+  </li>
+  <li><strong>Edit</strong>
+    <ul>
+      <li><strong>Copy Output</strong> - Copies the whole content of the currently displayed panel to the clipboard. If the Object Inspector is displayed and is inspecting any object, the object is being copied in the serialized XML format that is being used by Alcon's Object Inspector.</li>
+      <li><strong>Copy Output as HTML</strong> - Copies the content to the clipboard with HTML tags used by Alcon. This only works with the Trace- and File Loggers.</li>
+    </ul>
+  </li>
+  <li><strong>View</strong>
+    <ul>
+      <li><strong>Display Keywords</strong> - Toggles showing Filter Level Keywords on/off in the Trace Panel.</li>
+      <li><strong>Display MTASC Trace Origins</strong> - Toggles showing MTASC Trace Origins on/off in the Trace Panel. This only has an effect when compiling AS2 with MTASC.</li>
+      <li><strong>Stay On Top</strong> - Toggles the Alcon window to stay on top of other windows.</li>
+    </ul>
+  </li>
+  <li><strong>Help</strong>
+    <ul>
+      <li><strong>Help...</strong> - Opens the Help Panel.</li>
+      <li><strong>About...</strong> - Displays the About Dialog.</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<hr />
+<p>&nbsp;</p>
+<h2><a name="appmonitor" id="appmonitor"></a>3.2 App Monitor</h2>
+<p>Alcon's App Monitor can be used to monitor an application's framerate, frame render time and memory consumption. When monitoring any application the top area of the App Monitor is displaying the following information:</p>
+<ul>
+  <li><strong>Runtime Information. </strong>(AS3 only) This information consists of the computer platform (WIN/MAC/UNIX), the Runtime version and whether the Runtime is a Debugging Runtime or not (signaled by a 'D'). Clicking this text will output all properties provided by <span class="term">System.Capabilities</span> to the Trace Panel.</li>
+  <li><strong>FPS: The current and maximum framerate.</strong></li>
+  <li><strong>FRT: The frame render time.</strong></li>
+  <li><strong>MEM: The memory usage in Megabyte.</strong> (AS3 only)</li>
+</ul>
+<p>The App Monitor Graph displays the framerate in white, the Frame Render time in blue and the memory consumption in yellow. The upper limit for the memory meter can be changed in the Options in the App Monitor page.</p>
+<p>To use the App monitor use the <span class="term">Debug.monitor()</span> method. The monitor method requires the application's <span class="term">stage</span> object as an argument (for ActionScript 2 this should be _root and also the top framerate is required as an argument). optionally a poll interval can be specified with that the App Monitor will update. The default is 500 milliseconds.</p>
+<pre>import com.hexagonstar.util.debug.Debug;
+<br />
+public class Test extends Sprite
+{
+	public function Test()
+	{
+		/* Update App Monitor once a second */
+		Debug.monitor(stage, 1000);
+	}
+}</pre>
+<p>The mark() method can be used to place a vertical marker line in the App Monitor's graph at any time. Optionally a color for the marker can be specified:</p>
+<pre>/* Place a red marker */
+Debug.mark(0xFF0000);</pre>
+
+<p>It is recommended to use the monitor() calll early in the monitored application, for example in the first occuring constructor. For more information about the monitor API see the <a href="../api/com/hexagonstar/util/debug/Debug.html">API Documentation</a>.</p>
+<p>&nbsp;</p>
+<hr />
+<p>&nbsp;</p>
+<h2><a name="keyboardshortcuts" id="tracepanel5"></a>3.3 Keyboard Shortcuts</h2>
+<p><span class="key">&lt;P&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Pause/Unpause Trace &amp; File Loggers<br />
+  <span class="key">&lt;DEL&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Clear the currently displayed panel<br />
+  <span class="key">&lt;CTRL + DEL&gt;&nbsp;&nbsp;</span> Clear all panels<br />
+  <span class="key">&lt;R&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Reset<br />
+  <span class="key">&lt;CURSOR RIGHT&gt;</span> Switch to next panel<br />
+  <span class="key">&lt;CURSOR LEFT&gt;&nbsp;</span> Switch to previous panel<br />
+  <span class="key">&lt;CTRL + H&gt;&nbsp;&nbsp;&nbsp;&nbsp;</span> Open Help panel<br />
+    <span class="key">&lt;CTRL + O&gt;&nbsp;&nbsp;&nbsp;&nbsp;</span> Open Options dialog<br />
+  <span class="key">&lt;HOME&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Scroll to top<br />
+<span class="key">&lt;END&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Scroll to bottom</p>
+<p>&nbsp;</p>
+<hr />
+<p><br />
+</p>
+<h2><a name="apiinstallation" id="apiinstallation"></a>4.1. API Installation</h2>
+<p>Before Alcon can be used, the Debug classes (or the alcon.swc for AS3) need to be copied to your classpath folder. After Alcon has been installed you can find these files for ActionScript 2 and 3 in the following location ...</p>
+<p><strong>On Windows</strong> (32bit): <span class="term">C:\Program Files\Hexagon Star Softworks\Alcon\debug</span><br />
+   <strong>On Windows</strong> (64bit): <span class="term">C:\Program Files (x86)\Hexagon Star Softworks\Alcon\debug</span><br />
+</p>
+<p><strong>On Mac OSX</strong>: Right-click on the Alcon icon and choose 'Show Package Contents', then in the appearing folder open <span class="term">Contents/Resources/debug</span></p>
+<p>To use the Debug classes follow these steps ...</p>
+<p><strong>For ActionScript 3:</strong><br />
+Copy the file <em><strong>alcon.swc</strong></em> from  the path described above to your preferred path that you are using for your ActionScript 3 thirdparty classes and SWCs (on Windows you can also add this folder directly to your classpath).<br />
+When using the Flex mxmlc compiler the <strong>alcon.swc</strong> can be added to the library path with the <span class="term">library-path</span> argument.<br />
+For use with the Flash IDE add the <span class="term">.../debug/as3</span> folder to the class pathes used by the Flash IDE so that Flash can access the Debug class in the <span class="term">com.hexagonstar.util.debug</span> package. This can be done in the Flash IDE under Preferences/ActionScript/ActionScript 3.0 Settings.</p>
+<p><strong>For ActionScript 2:</strong><br />
+Copy the as2 folder  from the path described above to the classpath that you are using for your ActionScript 2 thirdparty classes. The package structure <span class="term">com.hexagonstar.util.debug</span> must remain the same.<br />
+When using MTASC the Debug class can be added to MTASC's class path with the <span class="term">-cp</span> argument.<br />
+For use with the Flash IDE add the   <span class="term">.../debug/as2</span> folder to the class pathes used by the Flash IDE so that Flash can access the Debug class in the <span class="term">com.hexagonstar.util.debug</span> package. This can be done in the Flash IDE under Preferences/ActionScript/ActionScript 2.0 Settings.</p>
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<application xmlns="http://ns.adobe.com/air/application/1.5.1">
+	<id>com.hexagonstar.alcon</id>
+	<filename>Alcon</filename>
+	<name>Alcon</name>
+	<version>3.1.4</version>
+	<description>The logging and debugging tool for ActionScript developers.</description>
+	<copyright>Hexagon Star Softworks</copyright>
+	<initialWindow>
+		<content>Main.swf</content>
+		<title>Alcon</title>
+		<!-- <systemChrome></systemChrome> -->
+		<!-- <transparent></transparent> -->
+		<!-- <visible></visible> -->
+		<!-- <minimizable></minimizable> -->
+		<!-- <maximizable></maximizable> -->
+		<!-- <resizable></resizable> -->
+		<!-- <width></width> -->
+		<!-- <height></height> -->
+		<!-- <x></x> -->
+		<!-- <y></y> -->
+		<minSize>340 146</minSize>
+		<!-- <maxSize></maxSize> -->
+	</initialWindow>
+	<installFolder>Hexagon Star Softworks</installFolder>
+	<programMenuFolder>Hexagon Star Softworks</programMenuFolder>
+	<icon>
+		<image16x16>resource/icons/icon_16x16.png</image16x16>
+		<image32x32>resource/icons/icon_32x32.png</image32x32>
+		<image48x48>resource/icons/icon_48x48.png</image48x48>
+		<image128x128>resource/icons/icon_128x128.png</image128x128>
+	</icon>
+	<!-- <customUpdateUI></customUpdateUI> -->
+	<!-- <allowBrowserInvocation></allowBrowserInvocation> -->
+	<!-- <fileTypes> -->
+	<!-- <fileType> -->
+	<!-- <name></name> -->
+	<!-- <extension></extension> -->
+	<!-- <description></description> -->
+	<!-- <contentType></contentType> -->
+	<!-- <icon>
+		<image16x16></image16x16>
+		<image32x32></image32x32>
+		<image48x48></image48x48>
+		<image128x128></image128x128>
+		</icon> -->
+	<!-- </fileType> -->
+	<!-- </fileTypes> -->
+</application>

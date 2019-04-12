@@ -1,0 +1,32 @@
+v3.1.1
+	* Fixed missing help files and debug API files.
+
+
+v3.1.0
+	* Added Key Tracer Feature.
+	* First code signed version.
+
+
+v3.0.2
+	* Changed Default Keywords to one-letter Keywords: [DEBUG] becomes [D], [INFO] becomes [I] etc. This is to save some more space on the output panel. Your existing config file will not be changed by this.
+	* Some internal optimizations made to the Tag Parsing.
+	* Changed keys that clear the text buffer to respond on KeyUp instead of KeyDown.
+	* Added Key-Tracing Mode.
+
+
+v3.0.1
+	* Fixed Spacing bug between Keyword String and Output String that would cause irregular spacing.
+	* Changed Updater to check for update silently when set to auto-check.
+
+
+v3.0.0
+	* Complete Rewrite for Adobe AIR platform.
+	* Added App Monitor.
+	* Object Inspector completely re-done.
+	* Added Help-Panel.
+	* Added Options Dialog.
+	* Added Auto-Update.
+	* Added traceObj() method.
+	* Changed output for recursive traced Objects.
+	* Several other changes and additions that apply to AIR and the new built version.
+    
