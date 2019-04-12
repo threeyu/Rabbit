@@ -18,7 +18,7 @@ package app.model.vo
 		
 		private var _uniArr : Array;			// 去重数组
 		private var _perScoreArr : Array;		// 每关分数
-		private var _age : uint;				// 当前年龄段
+		private var _age : uint = 999;			// 当前年龄段
 		private var _gate : uint;				// 当前关卡
 		private var _gateScore : Number;		// 当前关卡得分
 		private var _minGate : uint;			// 最小关卡
@@ -48,6 +48,7 @@ package app.model.vo
 			'<score species="4">' + _limitScore + '</score>' +
 			'<score species="5">' + _limitScore + '</score>' +
 			'<score species="6">' + _limitScore + '</score>' +
+			'<score species="7">' + _limitScore + '</score>' +
 			'</detail>' +
 			'<detail id="1" age="1">' +
 			'<score species="0">' + _limitScore + '</score>' +
@@ -57,6 +58,7 @@ package app.model.vo
 			'<score species="4">' + _limitScore + '</score>' +
 			'<score species="5">' + _limitScore + '</score>' +
 			'<score species="6">' + _limitScore + '</score>' +
+			'<score species="7">' + _limitScore + '</score>' +
 			'</detail>' +
 			'<detail id="2" age="2">' +
 			'<score species="0">' + _limitScore + '</score>' +
@@ -66,19 +68,11 @@ package app.model.vo
 			'<score species="4">' + _limitScore + '</score>' +
 			'<score species="5">' + _limitScore + '</score>' +
 			'<score species="6">' + _limitScore + '</score>' +
+			'<score species="7">' + _limitScore + '</score>' +
 			'</detail>' +
 			'</scores>'
 		);
 		
-		
-		/**
-		 *策划定义的，不同年龄段下的题目种类 
-		 */		
-//		private var _ageSpeciesArr : Array = [
-//			{ age:0, species:[0, 1, 2] },
-//			{ age:1, species:[2, 3, 4] },
-//			{ age:2, species:[5, 6, 1] }
-//		];
 		
 		public function GameState()
 		{
@@ -142,7 +136,7 @@ package app.model.vo
 		}
 		
 		/**
-		 * 结算界面的图标icon bitmap数组
+		 * 结算界面的图标icon bitmap数组 二维数组
 		 * @return 
 		 */		
 		public function get ICON_BM_LIST() : Array
@@ -155,7 +149,7 @@ package app.model.vo
 			clearList(val);
 		}
 		/**
-		 * 结算界面的图标label bitmap数组
+		 * 结算界面的图标label bitmap数组 二维数组
 		 * @return 
 		 */		
 		public function get LABEL_BM_LIST() : Array
@@ -171,13 +165,13 @@ package app.model.vo
 		private function setBMList(arr : Array) : Array
 		{
 			var result : Array = [];
-			var gateList : Array = this.getAllGate();
 			var uniArr : Array = getUniqueArrByAge(_age);
+			
 			for(var i : uint = 0; i < uniArr.length; ++i) {
 				result[i] = [];
-				for(var j : uint = 0; j < gateList.length; ++j) {
-					if(gateList[j].species == uniArr[i]) {
-						result[i].push(arr[j]);
+				for(var j : uint = 0; j < arr.length; ++j) {
+					if(arr[j].species == uniArr[i]) {
+						result[i].push(arr[j].url);
 					}
 				}
 			}

@@ -29,16 +29,22 @@ package app.conf
 	import extmodule.impl.rabbitBusyWeekend.BusyWeekendView1;
 	import extmodule.impl.rabbitCards.MyCardsModule3;
 	import extmodule.impl.rabbitCards.MyCardsView3;
+	import extmodule.impl.rabbitCards2.MyCards2Module1;
 	import extmodule.impl.rabbitCards2.MyCards2Module3;
+	import extmodule.impl.rabbitCards2.MyCards2View1;
 	import extmodule.impl.rabbitCards2.MyCards2View3;
 	import extmodule.impl.rabbitCircus.FindCircusModule0;
 	import extmodule.impl.rabbitCircus.FindCircusView0;
 	import extmodule.impl.rabbitColorInMirror.ColorInMirrorModule0;
 	import extmodule.impl.rabbitColorInMirror.ColorInMirrorView0;
 	import extmodule.impl.rabbitCount.LikeCountingModule1;
+	import extmodule.impl.rabbitCount.LikeCountingModule3;
 	import extmodule.impl.rabbitCount.LikeCountingView1;
-	import extmodule.impl.rabbitCountAndRight.CountAndRightModule0;
-	import extmodule.impl.rabbitCountAndRight.CountAndRightView0;
+	import extmodule.impl.rabbitCount.LikeCountingView3;
+	import extmodule.impl.rabbitCountAndRight.CountAndRightModule1;
+	import extmodule.impl.rabbitCountAndRight.CountAndRightModule3;
+	import extmodule.impl.rabbitCountAndRight.CountAndRightView1;
+	import extmodule.impl.rabbitCountAndRight.CountAndRightView3;
 	import extmodule.impl.rabbitDream.MyDreamModule3;
 	import extmodule.impl.rabbitDream.MyDreamView3;
 	import extmodule.impl.rabbitFarmDay.FarmDayModule0;
@@ -55,22 +61,30 @@ package app.conf
 	import extmodule.impl.rabbitFindAndCount.FindAndCountView0;
 	import extmodule.impl.rabbitFindAndMatch.FindAndMatchModule1;
 	import extmodule.impl.rabbitFindAndMatch.FindAndMatchView1;
-	import extmodule.impl.rabbitFindCount.FindCountModule0;
-	import extmodule.impl.rabbitFindCount.FindCountView0;
+	import extmodule.impl.rabbitFindCount.FindCountModule3;
+	import extmodule.impl.rabbitFindCount.FindCountView3;
+	import extmodule.impl.rabbitFindDifference.FindDifferModule0;
 	import extmodule.impl.rabbitFindDifference.FindDifferModule1;
+	import extmodule.impl.rabbitFindDifference.FindDifferModule2;
+	import extmodule.impl.rabbitFindDifference.FindDifferView0;
 	import extmodule.impl.rabbitFindDifference.FindDifferView1;
+	import extmodule.impl.rabbitFindDifference.FindDifferView2;
 	import extmodule.impl.rabbitFindDifference2.FindSomeDiffModule1;
 	import extmodule.impl.rabbitFindDifference2.FindSomeDiffView1;
 	import extmodule.impl.rabbitFindDifference3.KnowledgeRaceModule0;
 	import extmodule.impl.rabbitFindDifference3.KnowledgeRaceView0;
 	import extmodule.impl.rabbitFoodAssort.FoodAssortModule0;
+	import extmodule.impl.rabbitFoodAssort.FoodAssortModule2;
 	import extmodule.impl.rabbitFoodAssort.FoodAssortView0;
+	import extmodule.impl.rabbitFoodAssort.FoodAssortView2;
 	import extmodule.impl.rabbitFunAnimals.FunAnimalsModule0;
 	import extmodule.impl.rabbitFunAnimals.FunAnimalsView0;
 	import extmodule.impl.rabbitFunFarm.FunFarmModule0;
 	import extmodule.impl.rabbitFunFarm.FunFarmView0;
 	import extmodule.impl.rabbitFunSeq.FunSeqModule0;
+	import extmodule.impl.rabbitFunSeq.FunSeqModule2;
 	import extmodule.impl.rabbitFunSeq.FunSeqView0;
+	import extmodule.impl.rabbitFunSeq.FunSeqView2;
 	import extmodule.impl.rabbitHandwork.MyHandwordModule3;
 	import extmodule.impl.rabbitHandwork.MyHandwordView3;
 	import extmodule.impl.rabbitLearnDraw.LearnDrawModule0;
@@ -101,8 +115,8 @@ package app.conf
 	import extmodule.impl.rabbitManyShape.ManyShapeView0;
 	import extmodule.impl.rabbitMorning.MyMorningModule1;
 	import extmodule.impl.rabbitMorning.MyMorningView1;
-	import extmodule.impl.rabbitNumberMatch.NumberMatchModule0;
-	import extmodule.impl.rabbitNumberMatch.NumberMatchView0;
+	import extmodule.impl.rabbitNumberMatch.NumberMatchModule3;
+	import extmodule.impl.rabbitNumberMatch.NumberMatchView3;
 	import extmodule.impl.rabbitNumberWorld.NumberWorldModule0;
 	import extmodule.impl.rabbitNumberWorld.NumberWorldView0;
 	import extmodule.impl.rabbitObservedBoy.ObservedBoyModule0;
@@ -113,7 +127,9 @@ package app.conf
 	import extmodule.impl.rabbitPet.MyPetView1;
 	import extmodule.impl.rabbitPetManual.PetManualModule0;
 	import extmodule.impl.rabbitPetManual.PetManualView0;
+	import extmodule.impl.rabbitPlayAndCount.PlayCountModule1;
 	import extmodule.impl.rabbitPlayAndCount.PlayCountModule3;
+	import extmodule.impl.rabbitPlayAndCount.PlayCountView1;
 	import extmodule.impl.rabbitPlayAndCount.PlayCountView3;
 	import extmodule.impl.rabbitPlayGame.PlayGameModule1;
 	import extmodule.impl.rabbitPlayGame.PlayGameView1;
@@ -131,6 +147,10 @@ package app.conf
 	import extmodule.impl.rabbitRecognizeNum.RecognizeNumView1;
 	import extmodule.impl.rabbitRecycling.RecyclingModule3;
 	import extmodule.impl.rabbitRecycling.RecyclingView3;
+	import extmodule.impl.rabbitSortNumber.SortNumberModule0;
+	import extmodule.impl.rabbitSortNumber.SortNumberModule2;
+	import extmodule.impl.rabbitSortNumber.SortNumberView0;
+	import extmodule.impl.rabbitSortNumber.SortNumberView2;
 	import extmodule.impl.rabbitStrangeWeek.StrangeWeekModule0;
 	import extmodule.impl.rabbitStrangeWeek.StrangeWeekView0;
 	import extmodule.impl.rabbitToObAnimals.ToObAnimalsModule0;
@@ -208,6 +228,7 @@ package app.conf
 		
 		private function initMediators() : void
 		{
+			// 3-4
 			mediatorMap.map(WardobeView0).toMediator(WardobeModule0);
 			mediatorMap.map(BalloonView1).toMediator(BalloonModule1);
 			mediatorMap.map(PatternAroundView3).toMediator(PatternAroundModule3);
@@ -230,7 +251,7 @@ package app.conf
 			mediatorMap.map(LovelyTortoiseView3).toMediator(LovelyTortoiseModule3);
 			mediatorMap.map(MyCards2View3).toMediator(MyCards2Module3);
 			mediatorMap.map(PlayCountView3).toMediator(PlayCountModule3);
-			
+			// 4-5
 			mediatorMap.map(TrafficLearnView1).toMediator(TrafficLearnModule1);
 			mediatorMap.map(TrafficKnowView1).toMediator(TrafficKnowModule1);
 			mediatorMap.map(BicycleSafetyView3).toMediator(BicycleSafetyModule3);
@@ -262,7 +283,7 @@ package app.conf
 			mediatorMap.map(FindSomeDiffView1).toMediator(FindSomeDiffModule1);
 			mediatorMap.map(FindAndMatchView1).toMediator(FindAndMatchModule1);
 			mediatorMap.map(KnowledgeRaceView0).toMediator(KnowledgeRaceModule0);
-			
+			// 5-6
 			mediatorMap.map(ObservedBoyView0).toMediator(ObservedBoyModule0);
 			mediatorMap.map(PlayMatchView0).toMediator(PlayMatchModule0);
 			mediatorMap.map(WatchAndArrayView0).toMediator(WatchAndArrayModule0);
@@ -270,19 +291,29 @@ package app.conf
 			mediatorMap.map(PlayInZooView0).toMediator(PlayInZooModule0);
 			mediatorMap.map(FunAnimalsView0).toMediator(FunAnimalsModule0);
 			mediatorMap.map(FoodAssortView0).toMediator(FoodAssortModule0);
+			mediatorMap.map(FoodAssortView2).toMediator(FoodAssortModule2);
 			mediatorMap.map(ToObAnimalsView0).toMediator(ToObAnimalsModule0);
 			mediatorMap.map(FarmDayView0).toMediator(FarmDayModule0);
-			mediatorMap.map(FindCountView0).toMediator(FindCountModule0);
+			mediatorMap.map(FindCountView3).toMediator(FindCountModule3);
 			mediatorMap.map(FunFarmView0).toMediator(FunFarmModule0);
 			mediatorMap.map(LookCarefulView0).toMediator(LookCarefulModule0);
-			mediatorMap.map(CountAndRightView0).toMediator(CountAndRightModule0);
+			mediatorMap.map(CountAndRightView1).toMediator(CountAndRightModule1);
+			mediatorMap.map(CountAndRightView3).toMediator(CountAndRightModule3);
 			mediatorMap.map(PlayNumberView0).toMediator(PlayNumberModule0);
 			mediatorMap.map(NumberWorldView0).toMediator(NumberWorldModule0);
-			mediatorMap.map(NumberMatchView0).toMediator(NumberMatchModule0);
+			mediatorMap.map(NumberMatchView3).toMediator(NumberMatchModule3);
 			mediatorMap.map(LikeWritingView0).toMediator(LikeWritingModule0);
 			mediatorMap.map(FunSeqView0).toMediator(FunSeqModule0);
+			mediatorMap.map(FunSeqView2).toMediator(FunSeqModule2);
 			mediatorMap.map(SceneLineUpView3).toMediator(SceneLineUpModule4);
 			mediatorMap.map(BusyFarmView3).toMediator(BusyFarmModule3);
+			mediatorMap.map(FindDifferView0).toMediator(FindDifferModule0);
+			mediatorMap.map(FindDifferView2).toMediator(FindDifferModule2);
+			mediatorMap.map(LikeCountingView3).toMediator(LikeCountingModule3);
+			mediatorMap.map(MyCards2View1).toMediator(MyCards2Module1);
+			mediatorMap.map(PlayCountView1).toMediator(PlayCountModule1);
+			mediatorMap.map(SortNumberView0).toMediator(SortNumberModule0);
+			mediatorMap.map(SortNumberView2).toMediator(SortNumberModule2);
 		}
 		
 		private function initCommands() : void

@@ -27,7 +27,7 @@ package app.base.core.cmd
 		{
 			var gateList : Array = gameState.getAllGate();
 			
-			// 筛选游戏，选择isShow=true，并且从18中随机选则12道题，保证每类题各4道
+			// 筛选游戏，选择 isInQuestion=true，并且从中随机选则12道题，保证每类题各4道
 			var list : Array = showGameFilter(gateList);
 			
 			// 先保存题库，再设置每关分数
@@ -49,9 +49,9 @@ package app.base.core.cmd
 			var list : Array = [];
 			var i : uint, j : uint;
 			
-			// 筛选 isShow=true 的属性
+			// 筛选 isInQuestion=true 的属性
 			for each(var obj : Object in arr) {
-				if(obj.isShow == true) {
+				if(obj.isInQuestion == true) {
 					list.push(obj);
 				}
 			}

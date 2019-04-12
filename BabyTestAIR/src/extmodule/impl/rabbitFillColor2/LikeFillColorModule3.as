@@ -55,14 +55,14 @@ package extmodule.impl.rabbitFillColor2
 		
 		
 		
-		private var levelRightNum:Number;
 		private var levelNeedRightNum:Number;
 		
 		private var firstColor:Number=0x0f1813;
 		private var secondColor:Number=-1;
 		private var levelNum:Number=4;
 		
-		private var answerTimes:Number=0;
+		public var rightCnt:Number;
+		public var wrongCnt:Number;
 		
 		private var levelScene:Sprite;
 		private var firstColorBtn:MovieClip;
@@ -94,18 +94,11 @@ package extmodule.impl.rabbitFillColor2
 			
 			//			trace("[sound]: 交通中的颜色");
 			soundManager.playSound(_soundRoot + "titleSound.mp3");
-			TweenLite.delayedCall(3.5, titleSoundCallback);
+			
+			// 跳过引导动画
+			TweenLite.delayedCall(3.5, tipsSoundCallback);
 		}
 		
-		private function titleSoundCallback() : void
-		{
-			_mainUI["mcTips"].gotoAndStop(2);
-			
-			
-			//			trace("[sound]: 今天是周末。。。");
-			soundManager.playSound(_soundRoot + "yindao.mp3");
-			TweenLite.delayedCall(8, tipsSoundCallback);
-		}
 		private function tipsSoundCallback() : void
 		{
 			_mainUI["mcTips"].visible = false;
@@ -126,7 +119,12 @@ package extmodule.impl.rabbitFillColor2
 				_mainUI["colorBtn"+i].colorSound="resource/sound/common/" + colorSoundArray[i] + ".mp3";
 			}
 			
+			rightCnt=0;
+			wrongCnt=0;
+			
 			colorChange.color=0x0f1813;
+			_mainUI["nowColorMc"].transform.colorTransform=colorChange;
+			
 			firstColorBtn=_mainUI["colorBtn0"];
 			firstColorBtn.gotoAndStop(2);
 			initFun(levelFourColorMcNum,levelFourColorArray);
@@ -134,37 +132,14 @@ package extmodule.impl.rabbitFillColor2
 		
 		private function initFun(colormc:Number,colorary:Array):void
 		{
-			levelRightNum=0;
 			levelNeedRightNum=colormc;
 			levelScene=_mainUI;
-			
 			
 			for(var j:uint=0;j<colormc;j++){
 				levelScene["colorMc"+j].transform.colorTransform = new ColorTransform();
 				levelScene["colorMc"+j].rightColorStr=colorary[j];
-				levelScene["colorMc"+j].wrongSound="wrongSound.mp3";
-				levelScene["colorMc"+j].rightSound="rightSound.mp3";
 				levelScene["colorMc"+j].isRightColor=false;
 			}
-		}
-		
-		private function chackGame():void
-		{
-			account();
-			dispatch(new PPYEvent(CommandID.EXTMODULE_OVER));
-		}
-		
-		private function account() : void
-		{
-			var goldScoreNum:Number;
-			if(answerTimes<=4){
-				goldScoreNum = 50;
-			}else if(answerTimes>4&&answerTimes<=8){
-				goldScoreNum=20;
-			} else {
-				goldScoreNum=10;
-			}
-			saveScore(goldScoreNum, 50);
 		}
 		
 		private function setStringToKeyValue(str : String) : Array
@@ -406,8 +381,6 @@ package extmodule.impl.rabbitFillColor2
 								secondColor=-1;
 							}
 							
-							
-							//							trace("[sound]: sound/firstColorBtn.colorSound.mp3。。。");
 							soundManager.stopSoundExpect(_bgm);
 							soundManager.playSound(firstColorBtn.colorSound);
 						}
@@ -436,9 +409,6 @@ package extmodule.impl.rabbitFillColor2
 				colorChange.color=temp.colorNum;
 				firstColor=temp.colorNum;
 				
-				
-				
-				//				trace("[sound]: sound/temp.colorSound.mp3。。。");
 				soundManager.stopSoundExpect(_bgm);
 				soundManager.playSound(temp.colorSound);
 			}else{
@@ -449,16 +419,11 @@ package extmodule.impl.rabbitFillColor2
 						secondColorBtn.gotoAndStop(2);
 						mixUpColor();
 						
-						
-						
-						//						trace("[sound]: sound/temp.colorSound.mp3。。。");
 						soundManager.stopSoundExpect(_bgm);
 						soundManager.playSound(temp.colorSound);
 						TweenLite.delayedCall(1, function():void{
-							//							trace("[sound]: sound/firstColorBtn.colorSound.mp3。。。");
 							soundManager.playSound(firstColorBtn.colorSound);
 							TweenLite.delayedCall(1, function():void{
-								//								trace("[sound]: sound/mixup.mp3。。。");
 								soundManager.playSound("resource/sound/common/mixup.mp3");
 							});
 						});
@@ -477,7 +442,6 @@ package extmodule.impl.rabbitFillColor2
 					secondColor=-1;
 					
 					
-					//					trace("[sound]: sound/temp.colorSound.mp3。。。");
 					soundManager.stopSoundExpect(_bgm);
 					soundManager.playSound(temp.colorSound);
 				}
@@ -505,42 +469,21 @@ package extmodule.impl.rabbitFillColor2
 					temp.transform.colorTransform = (nameId == "4")? tempColorTransform : colorChange;
 				}
 				
+				temp.removeEventListener(MouseEvent.CLICK,addColorHandle);
+				temp.isRightColor=true;
+				
+				soundManager.stopSoundExpect(_bgm);
+				soundManager.playSound("resource/sound/common/rightSound.mp3");
 				
 				if(temp.rightColorStr.indexOf(colorChange.color)>=0){
-					temp.removeEventListener(MouseEvent.CLICK,addColorHandle);
-					temp.isRightColor=true;
-					levelRightNum++;
-					if(levelRightNum==levelNeedRightNum){
-						
-						
-						//						trace("[sound]: sound/rightSoundyx.mp3。。。");
-						//						TweenLite.delayedCall(3, function():void{
-						//							chackGame();
-						//						});
-						soundManager.stopSoundExpect(_bgm);
-						soundManager.playSound("resource/sound/common/rightSound.mp3");
-						chackGame();
-					}else{
-						
-						//						trace("[sound]: sound/rightSoundyx.mp3。。。");
-						//						TweenLite.delayedCall(3, function():void{
-						//							trace("[sound]: temp.rightSound.mp3。。。");
-						//						});
-						soundManager.stopSoundExpect(_bgm);
-						soundManager.playSound("resource/sound/common/rightSound.mp3");
-						soundManager.playSound(_soundRoot + temp.rightSound);
-					}
+					rightCnt++;
 				}else{
-					
-					//					trace("[sound]: sound/wrongSoundyx.mp3。。。");
-					//					TweenLite.delayedCall(3, function():void{
-					//						trace("[sound]: temp.wrongSound.mp3。。。");
-					//					});
-					soundManager.stopSoundExpect(_bgm);
-					soundManager.playSound("resource/sound/common/wrongSound.mp3");
-					soundManager.playSound(_soundRoot + temp.wrongSound);
-					
-					answerTimes++;
+					wrongCnt++;
+				}
+				
+				if((rightCnt + wrongCnt)==levelNeedRightNum){
+					saveScore(rightCnt, levelNeedRightNum);
+					dispatch(new PPYEvent(CommandID.EXTMODULE_OVER));
 				}
 			}
 			nowPickMode="huakuai";

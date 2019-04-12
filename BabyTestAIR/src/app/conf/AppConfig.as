@@ -27,16 +27,16 @@ package app.conf
 	import app.view.impl.scene.GameMenuView;
 	import app.view.impl.scene.GameOverView;
 	import app.view.impl.scene.GameScoreView;
-	import app.view.mediator.GameBG_0Mediator;
-	import app.view.mediator.GameEntryMediator;
-	import app.view.mediator.GameMenuMediator;
-	import app.view.mediator.GameOverMediator;
-	import app.view.mediator.GameScoreMediator;
-	import app.view.mediator.LoadingMediator;
-	import app.view.mediator.NewPlayerGuideMediator;
-	import app.view.mediator.QuitMediator;
-	import app.view.mediator.ReadmeMediator;
-	import app.view.mediator.TrailerMediator;
+	import app.mediator.bg.GameBG_0Mediator;
+	import app.mediator.scene.GameEntryMediator;
+	import app.mediator.scene.GameMenuMediator;
+	import app.mediator.scene.GameOverMediator;
+	import app.mediator.scene.GameScoreMediator;
+	import app.mediator.load.LoadingMediator;
+	import app.mediator.effect.NewPlayerGuideMediator;
+	import app.mediator.panel.QuitMediator;
+	import app.mediator.panel.ReadmeMediator;
+	import app.mediator.panel.TrailerMediator;
 	
 	import robotlegs.bender.extensions.eventCommandMap.api.IEventCommandMap;
 	import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;

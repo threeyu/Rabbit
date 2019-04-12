@@ -5,7 +5,6 @@ package extmodule.impl.rabbitFindCount
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Back;
 	
-	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
 	import app.base.core.event.PPYEvent;
@@ -30,10 +29,10 @@ package extmodule.impl.rabbitFindCount
 		
 		
 		
-		public var answerTimes:Number;
 		public var questionNum:uint=6;
 		public var levelNum:uint=1;
-		public var answeredNum:Number;
+		public var rightCnt:Number;
+		public var wrongCnt:Number;
 		public var answerListener:EntryPoint = EntryPoint.getInstance();
 		
 		public function FindCountModule0()
@@ -54,18 +53,11 @@ package extmodule.impl.rabbitFindCount
 			
 			//			trace("[sound]: 火火兔的玩具");
 			soundManager.playSound(_soundRoot + "titleSound.mp3");
-			TweenLite.delayedCall(3.5, titleSoundCallback);
+			
+			// 跳过引导动画
+			TweenLite.delayedCall(3.5, tipsSoundCallback);
 		}
 		
-		private function titleSoundCallback() : void
-		{
-			_mainUI["mcTips"].gotoAndStop(2);
-			
-			
-			//			trace("[sound]: 哇哦，家里好多。。。");
-			soundManager.playSound(_soundRoot + "yindao.mp3");
-			TweenLite.delayedCall(11, tipsSoundCallback);
-		}
 		private function tipsSoundCallback() : void
 		{
 			_mainUI["mcTips"].visible = false;
@@ -91,8 +83,8 @@ package extmodule.impl.rabbitFindCount
 				_mainUI["daanMc"+i].gotoAndStop(1);
 			}
 			
-			answerTimes=0;
-			answeredNum=0; 
+			rightCnt=0;
+			wrongCnt=0;
 			setSelectBlock();
 		}
 		
@@ -124,20 +116,6 @@ package extmodule.impl.rabbitFindCount
 			return str.split(",");
 		}
 		
-		private function account() : void
-		{
-			var score:Number=answerTimes-questionNum;
-			var goldScoreNum:Number;
-			if(score<=(1 * questionNum)) {
-				goldScoreNum = 50;
-			} else if(score>(1 * questionNum)&&score<=(2 * questionNum)) {
-				goldScoreNum=20;
-			} else {
-				goldScoreNum=10;
-			}
-			saveScore(goldScoreNum, 50);
-		}
-		
 		// 事件
 		private function onClose(e : MouseEvent) : void
 		{
@@ -147,52 +125,32 @@ package extmodule.impl.rabbitFindCount
 		private function keyDownHandle(e:KeyValueEvent/*e:KeyboardEvent*/) : void
 		{
 			if(uint(setStringToKeyValue(e.value)[1])!=1){
-				
-				answerTimes++;
 				for(var i:uint=0;i<questionNum;i++){
 					if(!_mainUI["xuanzeMc"+i].isRight){
 						if(_mainUI["xuanzeMc"+i].rightNum==/*e.keyCode*/Number(setStringToKeyValue(e.value)[0])){
-							var tempD:MovieClip=_mainUI["donghuaMc"+i];
-							var tempX:MovieClip=_mainUI["daanMc"+_mainUI["xuanzeMc"+i].currentFrameNum];
-							_mainUI["xuanzeMc"+i].isRight=true;
-							_mainUI["xuanzeMc"+i].rightMc.visible=true;
-							_mainUI["xuanzeMc"+i].isRightMc.gotoAndStop("right");
-							_mainUI["donghuaMc"+i].visible=true;
 							
-							
-							//							trace("[sound]: 答对了！");
 							soundManager.stopSoundExpect(_bgm);
 							soundManager.playSound("resource/sound/common/rightSound.mp3");
-							soundManager.playSound(_soundRoot + _mainUI["xuanzeMc"+i].rightSound);
 							
-							
-							TweenLite.to(_mainUI["donghuaMc"+i],1.5,{x:_mainUI["daanMc"+_mainUI["xuanzeMc"+i].currentFrameNum].x,y:_mainUI["daanMc"+_mainUI["xuanzeMc"+i].currentFrameNum].y,scaleX:1.5,scaleY:1.5,onComplete:function():void{
-								TweenLite.to(tempD,.8,{scaleX:1,scaleY:1,onComplete:function():void{
-									tempD.visible=false;
-									tempX.gotoAndStop(2);
-									answeredNum++;
-									
-									if(answeredNum==questionNum){
-										
-										account();
-										dispatch(new PPYEvent(CommandID.EXTMODULE_OVER));
-									}
-								}});
-							}});
+							_mainUI["xuanzeMc"+i].isRight=true;
+							rightCnt++;
 							break;
 						}
 						if(_mainUI["xuanzeMc"+i].wrongArray.indexOf(/*e.keyCode*/Number(setStringToKeyValue(e.value)[0]))>=0){
-							_mainUI["xuanzeMc"+i].isRightMc.gotoAndStop("wrong");
 							
-							
-							//							trace("[sound]: 答错了。。。sound/wrongSound.mp3");
-							//							trace("[sound]: " + _mainUI["xuanzeMc"+i].wrongSound);
 							soundManager.stopSoundExpect(_bgm);
-							soundManager.playSound("resource/sound/common/wrongSound.mp3");
-							soundManager.playSound(_soundRoot + _mainUI["xuanzeMc"+i].wrongSound);
+							soundManager.playSound("resource/sound/common/rightSound.mp3");
+							
+							_mainUI["xuanzeMc"+i].isRight=true;
+							wrongCnt++;
 							break;
 						}
 					}
+				}
+				
+				if((rightCnt + wrongCnt)==questionNum){
+					saveScore(rightCnt, questionNum);
+					dispatch(new PPYEvent(CommandID.EXTMODULE_OVER));
 				}
 			}
 		}

@@ -5,6 +5,7 @@ package app.base.core.cmd
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
+	import flash.utils.Dictionary;
 	
 	import app.base.core.event.PPYEvent;
 	import app.conf.constant.CommandID;
@@ -37,9 +38,14 @@ package app.base.core.cmd
 		[Inject]
 		public var loadingService : LoadingService;
 		
+		private var _iconUrlArr : Array;
+		private var _iconSpcArr : Array;
+		private var _iconDict : Dictionary;
+		private var _labelUrlArr : Array;
+		private var _labelSpcArr : Array;
+		private var _labelDict : Dictionary;
+		
 		private var _frameSp : Sprite;
-		private var _iconArr : Array;
-		private var _labelArr : Array;
 		private var _isIconloaded : Boolean;
 		private var _isLabelLoded : Boolean;
 		
@@ -79,24 +85,60 @@ package app.base.core.cmd
 		
 		private function loadGameIcon() : void
 		{
-			_iconArr = [];
-			_labelArr = [];
+			_iconUrlArr = [];
+			_iconSpcArr = [];
+			_iconDict = new Dictionary();
+			_labelUrlArr = [];
+			_labelSpcArr = [];
+			_labelDict = new Dictionary();
+			
 			var gateList : Array = gameState.getAllGate();
 			for(var i : uint = 0; i < gateList.length; ++i) {
-				_iconArr.push(gateList[i].icon);
-				_labelArr.push(gateList[i].label);
+				var iconName : String = gateList[i].icon + "";
+				var labelName : String = gateList[i].label + "";
+				var spec : uint = gateList[i].species;
+				
+				_iconDict[iconName] = { url:iconName + "?=" + Math.ceil(Math.random() * 1000), species:spec };
+				_labelDict[labelName] = { url:labelName + "?=" + Math.ceil(Math.random() * 1000), species:spec };
+				
 			}
 			
 			
+			for each(var iObj : Object in _iconDict) {
+				_iconUrlArr.push(iObj.url);
+				_iconSpcArr.push(iObj.species);
+			}
+			for each(var lObj : Object in _labelDict) {
+				_labelUrlArr.push(lObj.url);
+				_labelSpcArr.push(lObj.species);
+			}
 			
-			assetService.getGameIcon(_iconArr, loadIconCallback);
-			assetService.getGameLabel(_labelArr, loadLabelCallback);
+			
+			assetService.getGameIcon(_iconUrlArr, loadIconCallback);
+			assetService.getGameLabel(_labelUrlArr, loadLabelCallback);
+		}
+		
+		private function restoreBitmap(urlArr : Array, speciesArr : Array) : Array
+		{
+			var result : Array = [];
+			var len : uint = urlArr.length;
+			if(len != speciesArr.length) {
+				throw new Error("配表位图数量不准确，请检查资源完整");
+			}
+			
+			for(var i : uint = 0; i < len; ++i) {
+				result.push({ url:urlArr[i], species:speciesArr[i] });
+			}
+			
+			return result;
 		}
 		
 		private function loadIconCallback(data : Array) : void
 		{
-			gameState.ICON_BM_LIST = data;
-			clearPool(_iconArr);
+			gameState.ICON_BM_LIST = restoreBitmap(data, _iconSpcArr);
+			clearPool(_iconUrlArr);
+			clearPool(_iconSpcArr);
+			clearDict(_iconDict);
 			
 			
 			_isIconloaded = true;
@@ -104,8 +146,10 @@ package app.base.core.cmd
 		
 		private function loadLabelCallback(data : Array) : void
 		{
-			gameState.LABEL_BM_LIST = data;
-			clearPool(_labelArr);
+			gameState.LABEL_BM_LIST = restoreBitmap(data, _labelSpcArr);
+			clearPool(_labelUrlArr);
+			clearPool(_labelSpcArr);
+			clearDict(_labelDict);
 			
 			
 			_isLabelLoded = true;
@@ -120,6 +164,15 @@ package app.base.core.cmd
 				}
 				arr.splice(0, len);
 				arr = null;
+			}
+		}
+		
+		private function clearDict(dict : Dictionary) : void
+		{
+			if(dict) {
+				for(var key : * in dict) {
+					delete dict[key];
+				}
 			}
 		}
 		

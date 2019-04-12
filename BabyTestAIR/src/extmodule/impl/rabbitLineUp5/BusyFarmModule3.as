@@ -31,11 +31,9 @@ package extmodule.impl.rabbitLineUp5
 		
 		
 		
-		
 		private const LVL_NUM : uint = 1;
 		private const ITEM_NUM : uint = 6;
 		private var _curLvl : uint;
-		private var _curPlayId : uint;
 		private var _drawingToggleNum : uint;
 		private var _canDraw : Boolean;
 		private var _posList : Array;
@@ -43,7 +41,8 @@ package extmodule.impl.rabbitLineUp5
 		private var _tarList : Array;
 		private var _mouseCnt : uint;
 		
-		
+		public var rightCnt:Number;
+		public var wrongCnt:Number;
 		
 		
 		public function BusyFarmModule3()
@@ -56,36 +55,26 @@ package extmodule.impl.rabbitLineUp5
 			view.addToStage(_mainUI);
 			
 			
-			
 			_mainUI["mcTips"].visible = true;
 			_mainUI["mcTips"].gotoAndStop(1);
-			
 			
 			
 			TweenLite.from(_mainUI["mcTips"]["mcLabel"], 2, {y:-400, ease:Back.easeOut});
 			
 			
-			//			trace("[sound]: 火火兔找不同");
+			// trace("[sound]: 火火兔找不同");
 			soundManager.playSound(_soundRoot + "titleSound.mp3");
-			TweenMax.delayedCall(3.5, titleSoundCallback);
+			
+			// 跳过引导动画
+			TweenMax.delayedCall(3.5, tipsSoundCallback);
 		}
 		
-		private function titleSoundCallback() : void
-		{
-			_mainUI["mcTips"].gotoAndStop(2);
-			
-			
-			//			trace("[sound]: 哇哦，家里好多。。。");
-			soundManager.playSound(_soundRoot + "yindao.mp3");
-			TweenMax.delayedCall(11, tipsSoundCallback);
-		}
 		private function tipsSoundCallback() : void
 		{
 			_mainUI["mcTips"].visible = false;
 			_mainUI["mcTips"].gotoAndStop(1);
 			
 			
-			//			trace("[sound]: sound/question" + levelNum + ".mp3");
 			soundManager.playSound(_soundRoot + "soundTips_4.mp3");
 			soundManager.playSound(_bgm);
 			gameStart();
@@ -93,7 +82,8 @@ package extmodule.impl.rabbitLineUp5
 		
 		private function gameStart() : void
 		{
-			
+			rightCnt=0;
+			wrongCnt=0;
 			
 			_mouseCnt = 0;
 			_curLvl = 1;
@@ -111,7 +101,6 @@ package extmodule.impl.rabbitLineUp5
 			initList(0);
 			
 			
-			
 			// 动画
 			_mainUI["mcMov"]["mc"].gotoAndStop(1);
 			_mainUI["mcMov"].gotoAndStop(1);
@@ -125,7 +114,7 @@ package extmodule.impl.rabbitLineUp5
 			for(var j : uint = 0; j < ITEM_NUM; ++j)
 			{
 				if(_mainUI["mcLvl_" + id].hasOwnProperty("mcSrc_" + j))
-					_srcList[id][j] = {pos : new Point(_mainUI["mcLvl_" + id]["mcSrc_" + j].x, _mainUI["mcLvl_" + id]["mcSrc_" + j].y), tag : j, isLined : false};
+					_srcList[id][j] = {pos : new Point(_mainUI["mcLvl_" + id]["mcSrc_" + j].x, _mainUI["mcLvl_" + id]["mcSrc_" + j].y), tag : j};
 				if(_mainUI["mcLvl_" + id].hasOwnProperty("mcTar_" + j))
 					_tarList[id][j] = {pos : new Point(_mainUI["mcLvl_" + id]["mcTar_" + j].x, _mainUI["mcLvl_" + id]["mcTar_" + j].y), tag : j};
 			}
@@ -133,50 +122,42 @@ package extmodule.impl.rabbitLineUp5
 		
 		private function checkLine() : void
 		{
-			var i : uint, j : uint, k : uint;
-			for(i = 0; i < _srcList[_curLvl - 1].length; ++i)
+			var k : uint;
+			var len : uint = _posList.length;
+			for(var i : int = _srcList[_curLvl - 1].length - 1; i >= 0; i--)
 			{
-				for(j = 0; j < _tarList[_curLvl - 1].length; ++j)
-				{
-					if(isInRange(_posList[0], _srcList[_curLvl - 1][i].pos) && isInRange(_posList[_posList.length - 1], _tarList[_curLvl - 1][j].pos)
-						|| isInRange(_posList[0], _tarList[_curLvl - 1][j].pos) && isInRange(_posList[_posList.length - 1], _srcList[_curLvl - 1][i].pos))// 起点 和 终点
+				for(var j : int = _tarList[_curLvl - 1].length - 1; j >= 0; j--)
+				{	
+					if(isInRange(_posList[0], _srcList[_curLvl - 1][i].pos) && isInRange(_posList[len - 1], _tarList[_curLvl - 1][j].pos)
+						|| isInRange(_posList[0], _tarList[_curLvl - 1][j].pos) && isInRange(_posList[len - 1], _srcList[_curLvl - 1][i].pos))// 起点 和 终点
 					{
-						
-
 						soundManager.stopSoundExpect(_bgm);
+						soundManager.playSound("resource/sound/common/rightSound.mp3");
 						
 						
-						
-						if(_srcList[_curLvl - 1][i].tag == _tarList[_curLvl - 1][j].tag && _srcList[_curLvl - 1][i].isLined == false)// 连对
+						if(_srcList[_curLvl - 1][i].tag == _tarList[_curLvl - 1][j].tag)// 连对
 						{
 							trace("连对");
-							_curPlayId = _srcList[_curLvl - 1][i].tag;
-							
-							
-							soundManager.playSound(_soundRoot + "soundAns_" + _curPlayId + ".mp3");
-							
-							
-							_srcList[_curLvl - 1][i].isLined = true;
-							_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.lineStyle(3, 0xFF6262, 1);
-							//							_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.moveTo(_srcList[_curLvl - 1][i].pos.x, _srcList[_curLvl - 1][i].pos.y);
-							//							_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.lineTo(_tarList[_curLvl - 1][j].pos.x, _tarList[_curLvl - 1][j].pos.y);
-							k = 0;
-							_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.moveTo(_posList[k].x, _posList[k].y);
-							while(++k < _posList.length)
-								_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.lineTo(_posList[k].x, _posList[k].y);
-							checkWin();
+							rightCnt++;
 						}
 						else// 连错
 						{
 							trace("连错");
-							soundManager.playSound(_soundRoot + "soundWrong_" + i + ".mp3");
+							wrongCnt++;
 						}
-						return;
-					}
-					else
-					{
-						if(i == _srcList[_curLvl - 1].length - 1 && j == _tarList[_curLvl - 1].length - 1)
-							trace("选点不对");
+						
+						
+						_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.lineStyle(3, 0xFF6262, 1);
+						k = 0;
+						_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.moveTo(_posList[k].x, _posList[k].y);
+						while(++k < len)
+							_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.lineTo(_posList[k].x, _posList[k].y);
+						checkWin();
+						
+						
+						(_srcList[_curLvl - 1] as Array).splice(i, 1);
+						(_tarList[_curLvl - 1] as Array).splice(j, 1);
+						break;
 					}
 				}
 			}
@@ -216,15 +197,7 @@ package extmodule.impl.rabbitLineUp5
 		
 		private function checkWin() : void
 		{
-			var len : uint = _srcList[_curLvl - 1].length;
-			var cnt : uint = 0;
-			for(var i : uint = 0; i < len; ++i)
-			{
-				if(_srcList[_curLvl - 1][i].isLined == true)
-					cnt++;
-			}
-			
-			if(cnt == len)
+			if((rightCnt + wrongCnt)==ITEM_NUM)// next
 			{
 				_mainUI["mcMov"].visible = true;
 				_mainUI["mcMov"].gotoAndStop(uint(Math.random() * 3) + 1);
@@ -236,39 +209,16 @@ package extmodule.impl.rabbitLineUp5
 		
 		private function gameOver() : void
 		{
-			TweenMax.delayedCall(7, function():void{
+			TweenMax.delayedCall(3, function():void{
 				_mainUI["mcMov"]["mc"].gotoAndStop(1);
 				_mainUI["mcMov"].gotoAndStop(1);
 				_mainUI["mcMov"].visible = false;
 				
 				
 				trace("gameWin");
-				account();
+				saveScore(rightCnt, ITEM_NUM);
 				dispatch(new PPYEvent(CommandID.EXTMODULE_OVER));
 			});
-		}
-		
-		private function account() : void
-		{
-			var score : uint = 0;
-			var perfectCnt : uint = 0;
-			for(var i : uint = 0; i < _srcList.length; ++i)
-				for(var j : uint = 0; j < _srcList[i].length; ++j)
-					perfectCnt++;
-			var result : uint = _mouseCnt - perfectCnt;
-			if(result <= LVL_NUM)// A
-			{
-				score = 100;
-			}
-			else if(result > LVL_NUM && result <= (LVL_NUM * 2))// B
-			{
-				score = 50;
-			}
-			else// C
-			{
-				score = 20;
-			}
-			saveScore(score, 100);
 		}
 		
 		private function clearPool(arr : Array) : void
@@ -298,17 +248,6 @@ package extmodule.impl.rabbitLineUp5
 		
 		private function onBeginDraw(e : MouseEvent) : void
 		{
-			var len : uint = _srcList[_curLvl - 1].length;
-			var cnt : uint = 0;
-			for(var i : uint = 0; i < len; ++i)
-			{
-				if(_srcList[_curLvl - 1][i].isLined == true)
-					cnt++;
-			}
-			
-			if(cnt == len)
-				return;
-			
 			_canDraw = true;
 			_mouseCnt++;
 			clearPool(_posList);

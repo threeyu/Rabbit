@@ -7,7 +7,7 @@ package app.model.vo
 	 **/
 	public class Score
 	{
-		private var SPECIES_LEN : uint = 7;		// 共7个种类
+		private var SPECIES_LEN : uint = 8;		// 共8个种类
 		private var DEFAULT_NUM : uint = 9999;		// 默认分数
 		
 		private var _scoreArr : Array;				// 各年龄段下，每个种类的得分情况、分值

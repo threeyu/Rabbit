@@ -41,9 +41,10 @@ package extmodule.impl.rabbitFindAndMatch
 		private var _drawingToggleNum : uint;
 		private var _canDraw : Boolean;
 		private var _mouseCnt : uint;
-		private var _curPlayId : uint;
 		
 		
+		public var rightCnt:Number;
+		public var wrongCnt:Number;
 		
 		
 		public function FindAndMatchModule1()
@@ -66,6 +67,8 @@ package extmodule.impl.rabbitFindAndMatch
 			
 			//			trace("[sound]: 寻找马戏团");
 			soundManager.playSound(_soundRoot + "titleSound.mp3");
+			
+			// 跳过引导动画
 			TweenLite.delayedCall(4.5, titleSoundCallback);
 		}
 		
@@ -82,6 +85,8 @@ package extmodule.impl.rabbitFindAndMatch
 		
 		private function gameStart() : void
 		{
+			rightCnt=0;
+			wrongCnt=0;
 			
 			_curLvl = 1;
 			_mouseCnt = 0;
@@ -101,16 +106,11 @@ package extmodule.impl.rabbitFindAndMatch
 				for(var j : uint = 0; j < ITEM_NUM; ++j)
 				{
 					if(_mainUI["mcLvl_" + i].hasOwnProperty("mcSrc_" + j))
-						_srcList[i][j] = {pos : new Point(_mainUI["mcLvl_" + i]["mcSrc_" + j].x, _mainUI["mcLvl_" + i]["mcSrc_" + j].y), tag : j, isLined : false};
+						_srcList[i][j] = {pos : new Point(_mainUI["mcLvl_" + i]["mcSrc_" + j].x, _mainUI["mcLvl_" + i]["mcSrc_" + j].y), tag : j};
 					if(_mainUI["mcLvl_" + i].hasOwnProperty("mcTar_" + j))
 						_tarList[i][j] = {pos : new Point(_mainUI["mcLvl_" + i]["mcTar_" + j].x, _mainUI["mcLvl_" + i]["mcTar_" + j].y), tag : j};
 				}
 			}
-			_mainUI["mcLvl_0"]["mcSeal"].visible = false;
-			_mainUI["mcLvl_0"]["mcSeal"].gotoAndStop(1);
-			
-			
-			
 			
 			// 动画
 			_mainUI["mcMov"]["mc"].gotoAndStop(1);
@@ -140,75 +140,42 @@ package extmodule.impl.rabbitFindAndMatch
 		
 		private function checkLine() : void
 		{
-			var i : uint, j : uint, k : uint;
+			var k : uint;
 			var len : uint = _posArr.length;
-			for(i = 0; i < _srcList[_curLvl - 1].length; ++i)
+			for(var i : int = _srcList[_curLvl - 1].length - 1; i >= 0; i--)
 			{
-				for(j = 0; j < _tarList[_curLvl - 1].length; ++j)
-				{
+				for(var j : int = _tarList[_curLvl - 1].length - 1; j >= 0; j--)
+				{	
 					if(isInRange(_posArr[0], _srcList[_curLvl - 1][i].pos) && isInRange(_posArr[len - 1], _tarList[_curLvl - 1][j].pos)
 						|| isInRange(_posArr[0], _tarList[_curLvl - 1][j].pos) && isInRange(_posArr[len - 1], _srcList[_curLvl - 1][i].pos))// 起点 和 终点
 					{
-						if(_srcList[_curLvl - 1][i].tag == _tarList[_curLvl - 1][j].tag && _srcList[_curLvl - 1][i].isLined == false)// 连对
+						soundManager.stopSoundExpect(_bgm);
+						soundManager.playSound("resource/sound/common/rightSound.mp3");
+						
+						
+						if(_srcList[_curLvl - 1][i].tag == _tarList[_curLvl - 1][j].tag)// 连对
 						{
 							trace("连对");
-//							if(!_soundManager.isPlaying(SoundData.ANS_SOUND[_curLvl - 1][_srcList[_curLvl - 1][i].tag]))
-//								_soundManager.playSound(SoundData.ANS_SOUND[_curLvl - 1][_srcList[_curLvl - 1][i].tag]);
-							soundManager.playSound(_soundRoot + "sound_4.mp3");
-							
-							
-							
-							_mainUI["mcLvl_0"]["mcSeal"].visible = true;
-							_mainUI["mcLvl_0"]["mcSeal"].gotoAndPlay(1);
-							_mainUI["mcLvl_0"]["mcSeal"].x = (_posArr[0].x + _posArr[len - 1].x) * 0.5;
-							_mainUI["mcLvl_0"]["mcSeal"].y = (_posArr[0].y + _posArr[len - 1].y) * 0.5;
-							TweenLite.to(_mainUI, .5, {onComplete : function() : void{
-								_mainUI["mcLvl_0"]["mcSeal"].visible = false;
-							}});
-							
-							_curPlayId = _srcList[_curLvl - 1][i].tag;
-							_srcList[_curLvl - 1][i].isLined = true;
-							_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.lineStyle(3, 0xFF6262, 1);
-							k = 0;
-							_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.moveTo(_posArr[k].x, _posArr[k].y);
-							while(++k < len)
-								_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.lineTo(_posArr[k].x, _posArr[k].y);
-							checkWin();
+							rightCnt++;
 						}
 						else// 连错
 						{
 							trace("连错");
-//							if(!_soundManager.isPlaying(SoundData.WRONG_SOUND[_curLvl - 1]))
-//								_soundManager.playSound(SoundData.WRONG_SOUND[_curLvl - 1]);
-							soundManager.playSound(_soundRoot + "soundWrongAg.mp3");
-							
-							
-							_mainUI["mcWrong"].visible = true;
-							_mainUI["mcWrong"].x = (_posArr[0].x + _posArr[len - 1].x) * 0.5;
-							_mainUI["mcWrong"].y = (_posArr[0].y + _posArr[len - 1].y) * 0.5;
-							TweenLite.to(_mainUI, .5, {onComplete : function() : void{
-								_mainUI["mcWrong"].visible = false;
-							}});
+							wrongCnt++;
 						}
-						return;
-					}
-					else
-					{
-						if(i == _srcList[_curLvl - 1].length - 1 && j == _tarList[_curLvl - 1].length - 1)
-						{
-							trace("选点不对");
-//							if(!_soundManager.isPlaying(SoundData.WRONG_SOUND[_curLvl - 1]))
-//								_soundManager.playSound(SoundData.WRONG_SOUND[_curLvl - 1]);
-							soundManager.playSound(_soundRoot + "soundWrongAg.mp3");
-							
-							
-							_mainUI["mcWrong"].visible = true;
-							_mainUI["mcWrong"].x = _posArr[uint(len / 2)].x;
-							_mainUI["mcWrong"].y = _posArr[uint(len / 2)].y;
-							TweenLite.to(_mainUI, .5, {onComplete : function() : void{
-								_mainUI["mcWrong"].visible = false;
-							}});
-						}
+						
+						
+						_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.lineStyle(3, 0xFF6262, 1);
+						k = 0;
+						_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.moveTo(_posArr[k].x, _posArr[k].y);
+						while(++k < len)
+							_mainUI["mcLvl_" + (_curLvl - 1)]["mcResult"].graphics.lineTo(_posArr[k].x, _posArr[k].y);
+						checkWin();
+						
+						
+						(_srcList[_curLvl - 1] as Array).splice(i, 1);
+						(_tarList[_curLvl - 1] as Array).splice(j, 1);
+						break;
 					}
 				}
 			}
@@ -230,13 +197,7 @@ package extmodule.impl.rabbitFindAndMatch
 		
 		private function checkWin() : void
 		{
-			var cnt : uint = 0;
-			var len : uint = _srcList[_curLvl - 1].length;
-			for(var i : uint = 0; i < len; ++i)
-				if(_srcList[_curLvl - 1][i].isLined == true)
-					cnt++;
-			
-			if(cnt == len)// next
+			if((rightCnt + wrongCnt)==ITEM_NUM)// next
 			{
 				_mainUI["mcMov"].visible = true;
 				_mainUI["mcMov"].gotoAndStop(uint(Math.random() * 3) + 1);
@@ -253,34 +214,10 @@ package extmodule.impl.rabbitFindAndMatch
 				_mainUI["mcMov"].gotoAndStop(1);
 				_mainUI["mcMov"].visible = false;
 				
-				
 				trace("gameWin");
-				account();
+				saveScore(rightCnt, ITEM_NUM);
 				dispatch(new PPYEvent(CommandID.EXTMODULE_OVER));
 			});
-		}
-		
-		private function account() : void
-		{
-			var score : uint = 0;
-			var perfectCnt : uint = 0;
-			for(var i : uint = 0; i < _srcList.length; ++i)
-				for(var j : uint = 0; j < _srcList[i].length; ++j)
-					perfectCnt++;
-			var result : uint = _mouseCnt - perfectCnt;
-			if(result <= LVL_NUM)// A
-			{
-				score = 100;
-			}
-			else if(result > LVL_NUM && result <= (LVL_NUM * 2))// B
-			{
-				score = 50;
-			}
-			else// C
-			{
-				score = 20;
-			}
-			saveScore(score, 100);
 		}
 		
 		private function clearPool(arr : Array) : void
@@ -309,18 +246,6 @@ package extmodule.impl.rabbitFindAndMatch
 		
 		private function onBeginDraw(e : MouseEvent) : void
 		{
-			var len : uint;
-			var cnt : uint = 0;
-			var i : uint;
-			len = _srcList[_curLvl - 1].length;
-			for(i = 0; i < len; ++i)
-				if(_srcList[_curLvl - 1][i].isLined == true)
-					cnt++;
-			if(cnt == len)
-				return;
-			
-			if(soundManager.isPlaying(_soundRoot + "soundWrongAg.mp3"))
-				return;
 			soundManager.stopSoundExpect(_bgm);
 			
 			_canDraw = true;

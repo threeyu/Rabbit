@@ -13,11 +13,11 @@ package app.model
 		function get MAX_GATE() : uint;
 		function set MAX_GATE(value : uint) : void;
 		
-		/**推荐icon图标**/
+		/**推荐icon图标 二维数组**/
 		function get ICON_BM_LIST() : Array;
 		function set ICON_BM_LIST(val : Array) : void;
 		
-		/**推荐label图标**/
+		/**推荐label图标 二维数组**/
 		function get LABEL_BM_LIST() : Array;
 		function set LABEL_BM_LIST(val : Array) : void;
 

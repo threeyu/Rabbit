@@ -66,7 +66,7 @@ package app.model.vo
 					gameObj.label = "resource/icon/" + gameInfo.@label + ".png";	// app label
 					gameObj.packName = gameInfo.@packName + "";						// app 包名
 					gameObj.type = uint(gameInfo.@type);							// 关卡类型
-					gameObj.isShow = gameInfo.@isShow;								// 是否在题库内
+					gameObj.isInQuestion = gameInfo.@isInQuestion;					// 是否在题库内
 					gameObj.species = uint(gameInfo.@species);						// 题目种类
 					gameObj.module = gameInfo.@module + "";							// 入口包名
 					gameObj.view = gameInfo.@view + "";								// 模块舞台类名
@@ -74,13 +74,6 @@ package app.model.vo
 					_gateArr[age].gateList.push(gameObj);
 				}
 				
-//				var len : uint = _gateArr[age].gateList.length;
-//				var minG : uint, maxG : uint;
-//				minG = len > 0? 0 : DEFAULT_NUM;
-//				maxG = len > 0? len : 0;
-//				
-//				_gateArr[age].minGate = minG;
-//				_gateArr[age].maxGate = maxG;
 			}
 		}
 		
