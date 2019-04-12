@@ -34,4 +34,7 @@ bin-release/
 !/ExternalModule2017
 !/ExternalModule2018
 
-
+!/TestObjPool
+!/TestSnake
+!/TestHelloCitrusEngine
+!/Robotlegs2TimerExample
